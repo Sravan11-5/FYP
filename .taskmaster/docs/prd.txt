@@ -1,0 +1,582 @@
+# Product Requirements Document (PRD)
+# Telugu Movie Recommendation System using Agentic AI and Deep Learning
+
+## 1. PROJECT OVERVIEW
+
+### 1.1 Project Name
+Intelligent Telugu Movie Recommendation System with Multi-Source Review Analysis
+
+### 1.2 Project Vision
+Build an intelligent recommendation system that uses Agentic AI and Deep Learning to analyze reviews written in the Telugu language and provide context-aware movie suggestions. The system will automatically collect data from multiple platforms (Twitter, TMDB), process Telugu reviews using Siamese Networks for sentiment classification and domain understanding, and generate personalized movie recommendations without human intervention.
+
+### 1.3 Problem Statement
+Existing recommendation systems have significant limitations:
+- Focus only on English reviews and simple sentiment-based methods
+- Single data source (Twitter only) with no multi-platform support
+- Manual processes with no automation for data collection, analysis, or recommendations
+- Non-context-aware recommendations based purely on sentiment polarity
+- Limited scalability for large datasets
+- No support for regional languages like Telugu
+- Use older algorithms (SVM/CNN) that are less accurate
+
+### 1.4 Solution Overview
+The proposed system addresses these gaps by:
+1. Supporting Telugu language reviews with multi-source data collection
+2. Implementing autonomous Agentic AI pipeline for end-to-end automation
+3. Providing context-aware recommendations using domain classification
+4. Using modern Siamese Networks for accurate sentiment analysis
+5. Handling large datasets with scalable architecture
+6. Preventing duplicate data storage with intelligent caching
+
+## 2. TECHNICAL STACK
+
+### 2.1 Backend
+- **Language**: Python 3.10+
+- **Framework**: FastAPI
+- **API Design**: RESTful APIs
+- **Async Processing**: asyncio for concurrent API calls
+
+### 2.2 Frontend
+- **Technologies**: HTML5, CSS3, JavaScript (ES6+)
+- **UI Framework**: Vanilla JS or lightweight framework
+- **Styling**: Modern responsive design
+
+### 2.3 Database
+- **Primary Database**: PostgreSQL or MongoDB
+- **Schema**: Movies, Reviews, Genres, Ratings, User Searches
+
+### 2.4 External APIs
+- **Twitter API v2**: For fetching movie reviews in Telugu
+- **TMDB API**: For movie metadata, genres, and ratings
+
+### 2.5 Deep Learning Models
+- **Siamese Networks**: For Telugu sentiment analysis and domain classification
+- **Pre-trained Models**: Telugu language embeddings
+- **Framework**: TensorFlow/PyTorch
+
+### 2.6 Agentic AI Workflow
+- **Orchestration**: LangChain or custom agent framework
+- **Automation**: End-to-end pipeline from data collection to recommendation
+
+## 3. SYSTEM ARCHITECTURE
+
+### 3.1 High-Level Components
+1. **User Interface Layer**: Web-based search interface
+2. **API Gateway**: FastAPI endpoints
+3. **Agentic AI Orchestrator**: Autonomous workflow management
+4. **Data Collection Agent**: Multi-source data fetching
+5. **Deep Learning Engine**: Siamese Network for sentiment analysis
+6. **Database Layer**: Persistent storage with caching
+7. **Recommendation Engine**: Context-aware movie suggestions
+
+### 3.2 Data Flow
+User Input → API Gateway → Agentic AI Agent → Multi-Source Data Collection → Database Storage → Deep Learning Analysis → Recommendation Generation → User Interface
+
+## 4. FUNCTIONAL REQUIREMENTS
+
+### 4.1 User Input and Search
+**FR-1**: User Search Interface
+- User can input a Telugu or English movie name
+- Search box with autocomplete suggestions
+- Submit button to trigger recommendation workflow
+
+**FR-2**: Input Validation
+- Validate movie name format
+- Handle special characters and Telugu script
+- Provide error messages for invalid inputs
+
+### 4.2 Movie Metadata Collection (TMDB)
+**FR-3**: Fetch Movie from TMDB
+- Search movie by name using TMDB API
+- Retrieve movie ID, title, genres, rating, release date
+- Handle multiple results and disambiguation
+- Store movie metadata in database
+
+**FR-4**: Genre-Based Movie Discovery
+- Fetch all movies matching the genre of user's input movie
+- Filter by rating range (similar ratings)
+- Retrieve up to 50-100 similar movies
+- Store fetched movies in database with metadata
+
+**FR-5**: Duplicate Prevention for Movies
+- Check if movie already exists in database before storing
+- Update existing records if metadata has changed
+- Skip duplicate inserts to optimize performance
+
+### 4.3 Review Collection (Twitter)
+**FR-6**: Fetch Reviews for User Input Movie
+- Search Twitter for reviews mentioning the movie name
+- Filter tweets in Telugu language
+- Extract text, author, timestamp, engagement metrics
+- Store reviews linked to movie ID in database
+
+**FR-7**: Fetch Reviews for Similar Movies
+- For each movie fetched from TMDB, search Twitter for reviews
+- Collect Telugu reviews for all similar movies
+- Batch processing to handle multiple movies efficiently
+- Store reviews with movie association
+
+**FR-8**: Duplicate Prevention for Reviews
+- Check if tweet ID already exists in database
+- Skip duplicate review inserts
+- Update engagement metrics if review exists
+
+**FR-9**: Review Data Enrichment
+- Extract hashtags, mentions, and keywords
+- Identify language (Telugu/English/mixed)
+- Store raw text for deep learning processing
+
+### 4.4 Database Management
+**FR-10**: Database Schema Design
+- **Movies Table**: movie_id, tmdb_id, title, genres, rating, release_date, created_at, updated_at
+- **Reviews Table**: review_id, tweet_id, movie_id, text, author, timestamp, language, sentiment_score, domain_category, created_at
+- **User_Searches Table**: search_id, movie_name, search_timestamp, result_count
+- **Movie_Relationships Table**: movie_id, related_movie_id, similarity_score
+
+**FR-11**: Efficient Data Retrieval
+- Index on movie_id, tmdb_id, tweet_id for fast lookups
+- Query optimization for checking existing records
+- Connection pooling for concurrent database operations
+
+**FR-12**: Data Caching Strategy
+- Cache frequently searched movies
+- Store search results temporarily
+- Implement TTL (Time-To-Live) for cache expiration
+
+### 4.5 Deep Learning Processing
+**FR-13**: Siamese Network for Sentiment Analysis
+- Load pre-trained Telugu language model
+- Process reviews to extract sentiment (positive/negative/neutral)
+- Assign sentiment scores to each review
+- Store sentiment results in database
+
+**FR-14**: Domain Classification
+- Classify reviews by domain (movie quality, acting, music, direction, story)
+- Extract context-aware features from reviews
+- Store domain categories in database
+
+**FR-15**: Model Training and Fine-Tuning
+- Train Siamese Network on Telugu movie reviews dataset
+- Fine-tune model for better accuracy
+- Save model checkpoints for inference
+
+**FR-16**: Batch Processing for Reviews
+- Process reviews in batches (100-500 at a time)
+- Handle large datasets efficiently
+- Implement GPU acceleration if available
+
+### 4.6 Recommendation Engine
+**FR-17**: Context-Aware Recommendation Algorithm
+- Analyze sentiment scores of user input movie
+- Compare with sentiment scores of similar movies
+- Weight recommendations by genre match, rating similarity, and positive sentiment
+- Rank movies by recommendation score
+
+**FR-18**: Personalized Ranking
+- Consider multiple factors: genre, rating, sentiment, recency
+- Apply weighted scoring algorithm
+- Return top 10-20 recommended movies
+
+**FR-19**: Explanation Generation
+- Provide reasons for each recommendation (e.g., "High positive sentiment in Telugu reviews", "Same genre with better ratings")
+- Display sentiment distribution for each recommended movie
+
+**FR-20**: Real-Time Recommendation Updates
+- Update recommendations if new reviews are available
+- Re-rank movies based on fresh data
+
+### 4.7 Agentic AI Workflow Automation
+**FR-21**: Autonomous Agent Orchestration
+- Agent triggers data collection automatically upon user search
+- Coordinates TMDB and Twitter API calls
+- Manages database operations without manual intervention
+- Handles errors and retries automatically
+
+**FR-22**: Workflow Steps Automation
+- **Step 1**: Receive user input movie name
+- **Step 2**: Check if movie exists in database; if yes, skip to Step 5
+- **Step 3**: Fetch movie from TMDB (genre, rating)
+- **Step 4**: Fetch reviews from Twitter for user input movie
+- **Step 5**: Store movie and reviews in database (if not exists)
+- **Step 6**: Fetch similar movies from TMDB based on genre and rating
+- **Step 7**: For each similar movie, fetch reviews from Twitter
+- **Step 8**: Store similar movies and reviews in database (if not exists)
+- **Step 9**: Process all reviews using Siamese Network (sentiment + domain)
+- **Step 10**: Generate recommendations using recommendation algorithm
+- **Step 11**: Return ranked movie list to user
+
+**FR-23**: Error Handling and Logging
+- Log all API calls, database operations, and model inferences
+- Handle API rate limits gracefully
+- Retry failed operations with exponential backoff
+- Send alerts for critical failures
+
+### 4.8 API Endpoints (FastAPI)
+**FR-24**: Search Endpoint
+- **POST /api/search**: Accept movie name, trigger recommendation workflow
+- **Response**: Recommendation list with movie details and sentiment scores
+
+**FR-25**: Movie Details Endpoint
+- **GET /api/movie/{movie_id}**: Fetch detailed movie information
+- **Response**: Movie metadata, reviews, sentiment analysis
+
+**FR-26**: Status Endpoint
+- **GET /api/status/{search_id}**: Check recommendation generation status
+- **Response**: Progress percentage, current step
+
+**FR-27**: Health Check Endpoint
+- **GET /api/health**: Verify system health
+- **Response**: Database status, API availability, model status
+
+### 4.9 User Interface Requirements
+**FR-28**: Search Page
+- Clean, modern search interface
+- Input field for movie name
+- Loading indicator during processing
+- Error messages for invalid searches
+
+**FR-29**: Results Display Page
+- Display top 10-20 recommended movies
+- Show movie poster, title, genre, rating, sentiment score
+- Provide explanation for each recommendation
+- Click to view detailed movie information
+
+**FR-30**: Movie Details Modal/Page
+- Display comprehensive movie information
+- Show sentiment distribution chart
+- Display sample Telugu reviews with translations
+- Link to TMDB and Twitter sources
+
+**FR-31**: Responsive Design
+- Mobile-friendly layout
+- Support for Telugu script display
+- Cross-browser compatibility
+
+## 5. NON-FUNCTIONAL REQUIREMENTS
+
+### 5.1 Performance
+**NFR-1**: API Response Time
+- Search endpoint should respond within 5-10 seconds for cached results
+- Full recommendation workflow should complete within 30-60 seconds for new searches
+
+**NFR-2**: Scalability
+- Handle 100+ concurrent users
+- Process 10,000+ reviews per recommendation
+- Support database growth to millions of records
+
+**NFR-3**: Model Inference Speed
+- Siamese Network should process 100 reviews per second
+- Batch processing to optimize GPU utilization
+
+### 5.2 Reliability
+**NFR-4**: System Uptime
+- Target 99% uptime
+- Graceful degradation if external APIs fail
+
+**NFR-5**: Data Integrity
+- Ensure no data loss during storage
+- Implement database transactions for consistency
+
+### 5.3 Security
+**NFR-6**: API Key Management
+- Securely store Twitter and TMDB API keys in environment variables
+- Use secrets management service (e.g., AWS Secrets Manager, .env files)
+
+**NFR-7**: Input Sanitization
+- Prevent SQL injection and XSS attacks
+- Validate and sanitize all user inputs
+
+**NFR-8**: Rate Limiting
+- Implement rate limiting on API endpoints
+- Prevent abuse and DDoS attacks
+
+### 5.4 Maintainability
+**NFR-9**: Code Quality
+- Follow PEP 8 style guide for Python
+- Write unit tests for critical components
+- Document all functions and classes
+
+**NFR-10**: Logging and Monitoring
+- Implement structured logging
+- Monitor API usage, error rates, and performance metrics
+
+### 5.5 Usability
+**NFR-11**: User Experience
+- Intuitive interface with minimal clicks
+- Fast search experience
+- Clear feedback during processing
+
+**NFR-12**: Accessibility
+- Support Telugu and English languages
+- Readable font sizes and color contrast
+
+## 6. DATA REQUIREMENTS
+
+### 6.1 Data Sources
+**DR-1**: Twitter API v2
+- Endpoint: `/2/tweets/search/recent`
+- Authentication: Bearer Token
+- Rate Limit: 450 requests per 15 minutes (Standard Access)
+- Query: Movie name + Telugu language filter
+
+**DR-2**: TMDB API
+- Endpoint: `/search/movie`, `/movie/{movie_id}`, `/discover/movie`
+- Authentication: API Key
+- Rate Limit: 40 requests per 10 seconds
+- Data: Movie metadata, genres, ratings
+
+### 6.2 Data Storage
+**DR-3**: Database Size Estimation
+- Movies: ~50,000 movies (5 MB)
+- Reviews: ~5,000,000 reviews (500 MB)
+- Sentiment Analysis: ~5,000,000 records (200 MB)
+- Total: ~1 GB (initial), scalable to 10+ GB
+
+**DR-4**: Data Retention
+- Store reviews for 1 year
+- Archive old reviews after 1 year
+- Keep movie metadata indefinitely
+
+### 6.3 Data Quality
+**DR-5**: Review Filtering
+- Minimum review length: 10 characters
+- Filter spam and irrelevant content
+- Prioritize Telugu reviews over English
+
+**DR-6**: Movie Metadata Accuracy
+- Use official TMDB data
+- Update metadata periodically
+- Handle missing data gracefully
+
+## 7. DEEP LEARNING MODEL REQUIREMENTS
+
+### 7.1 Siamese Network Architecture
+**ML-1**: Model Design
+- Input: Telugu text reviews (tokenized)
+- Embedding Layer: Pre-trained Telugu embeddings (FastText, Word2Vec, or BERT-based)
+- Siamese Branches: Two identical networks for similarity learning
+- Output: Sentiment score (-1 to +1) and domain category (multi-label)
+
+**ML-2**: Training Dataset
+- Collect 50,000+ labeled Telugu movie reviews
+- Annotate sentiment (positive/negative/neutral)
+- Annotate domain (acting, story, music, direction, cinematography)
+- Split: 80% training, 10% validation, 10% testing
+
+**ML-3**: Model Training
+- Framework: TensorFlow or PyTorch
+- Loss Function: Contrastive loss or triplet loss
+- Optimizer: Adam with learning rate scheduling
+- Epochs: 20-50 epochs with early stopping
+
+**ML-4**: Model Evaluation
+- Accuracy: >85% on test set
+- F1-Score: >0.80 for sentiment classification
+- Inference Time: <10ms per review
+
+### 7.2 Model Deployment
+**ML-5**: Model Serving
+- Load trained model on application startup
+- Use GPU if available, fallback to CPU
+- Implement model versioning for updates
+
+**ML-6**: Continuous Improvement
+- Collect user feedback on recommendations
+- Retrain model periodically with new data
+- A/B test model versions
+
+## 8. AGENTIC AI WORKFLOW
+
+### 8.1 Agent Design
+**AI-1**: Agent Architecture
+- Use LangChain or custom agent framework
+- Define agent roles: Data Collector, Analyzer, Recommender
+- Implement tool use: TMDB API tool, Twitter API tool, Database tool, ML Model tool
+
+**AI-2**: Agent Decision Making
+- Agent decides whether to fetch new data or use cached data
+- Agent prioritizes tasks (e.g., fetch user movie first, then similar movies)
+- Agent handles failures and retries automatically
+
+**AI-3**: Autonomous Execution
+- No manual intervention required
+- Agent logs all actions for transparency
+- Agent provides progress updates to user
+
+### 8.2 Workflow Orchestration
+**AI-4**: Workflow Steps
+1. **Receive User Input**: Parse and validate movie name
+2. **Check Cache**: Query database for existing movie and reviews
+3. **Fetch User Movie Data**: Call TMDB API and Twitter API
+4. **Store User Movie**: Insert into database if not exists
+5. **Discover Similar Movies**: Query TMDB for genre-matched movies
+6. **Fetch Similar Movie Reviews**: Parallel Twitter API calls
+7. **Store Similar Movies**: Bulk insert into database (skip duplicates)
+8. **Analyze Sentiments**: Batch process reviews with Siamese Network
+9. **Generate Recommendations**: Run recommendation algorithm
+10. **Return Results**: Format and send to frontend
+
+**AI-5**: Parallel Processing
+- Fetch reviews for multiple movies concurrently
+- Use asyncio for non-blocking I/O
+- Limit concurrent requests to respect API rate limits
+
+**AI-6**: Error Recovery
+- Retry failed API calls (max 3 retries)
+- Skip movies with no reviews
+- Continue workflow even if some movies fail
+
+## 9. IMPLEMENTATION PHASES
+
+### Phase 1: Foundation (Weeks 1-2)
+- Set up FastAPI backend structure
+- Implement database schema and models
+- Create basic frontend UI (search page)
+- Integrate TMDB API and Twitter API
+- Implement basic endpoints (search, health check)
+
+### Phase 2: Data Collection (Weeks 3-4)
+- Build data collection agents for TMDB and Twitter
+- Implement duplicate prevention logic
+- Create database storage functions
+- Test data collection for multiple movies
+- Implement error handling and retries
+
+### Phase 3: Deep Learning Model (Weeks 5-7)
+- Collect and prepare Telugu movie reviews dataset
+- Design and implement Siamese Network architecture
+- Train model on labeled data
+- Evaluate model performance
+- Integrate model into backend for inference
+
+### Phase 4: Recommendation Engine (Week 8)
+- Develop context-aware recommendation algorithm
+- Implement ranking and scoring logic
+- Generate explanations for recommendations
+- Test recommendation quality
+
+### Phase 5: Agentic AI Integration (Week 9)
+- Build agentic AI orchestrator
+- Automate end-to-end workflow
+- Implement autonomous decision-making
+- Test full pipeline with multiple scenarios
+
+### Phase 6: Frontend Development (Week 10)
+- Complete UI for search and results pages
+- Display recommendations with movie details
+- Implement responsive design
+- Add Telugu language support
+
+### Phase 7: Testing and Optimization (Weeks 11-12)
+- Conduct unit testing, integration testing, and end-to-end testing
+- Optimize API performance and database queries
+- Improve model accuracy with fine-tuning
+- Load testing for scalability
+
+### Phase 8: Deployment and Documentation (Weeks 13-14)
+- Deploy backend on cloud server (AWS, GCP, or Azure)
+- Deploy frontend with CDN
+- Write user documentation and API documentation
+- Prepare project presentation
+
+## 10. SUCCESS METRICS
+
+### 10.1 Technical Metrics
+- **Recommendation Accuracy**: >80% user satisfaction rate
+- **System Response Time**: <30 seconds for full workflow
+- **Model Performance**: >85% sentiment classification accuracy
+- **API Uptime**: >99% availability
+
+### 10.2 Business Metrics
+- **User Engagement**: Users perform multiple searches
+- **Data Coverage**: >10,000 Telugu movie reviews in database
+- **Recommendation Quality**: High relevance and diversity
+
+### 10.3 Research Contribution
+- Demonstrate Agentic AI for automation
+- Validate Siamese Networks for Telugu sentiment analysis
+- Show improvement over existing systems
+
+## 11. RISKS AND MITIGATION
+
+### 11.1 Technical Risks
+**Risk-1**: Twitter API rate limits
+- **Mitigation**: Implement caching, batch requests, use API efficiently
+
+**Risk-2**: Limited Telugu training data
+- **Mitigation**: Augment data, use transfer learning, semi-supervised learning
+
+**Risk-3**: Model inference latency
+- **Mitigation**: Optimize model, use GPU, batch processing
+
+### 11.2 External Dependencies
+**Risk-4**: API availability and changes
+- **Mitigation**: Monitor API status, implement fallbacks, version control
+
+**Risk-5**: Data quality issues
+- **Mitigation**: Implement data validation, filtering, and cleaning
+
+### 11.3 Project Risks
+**Risk-6**: Scope creep
+- **Mitigation**: Prioritize core features, defer advanced features to future versions
+
+**Risk-7**: Timeline delays
+- **Mitigation**: Agile development, weekly milestones, buffer time
+
+## 12. FUTURE ENHANCEMENTS
+
+### 12.1 Feature Expansions
+- Support multiple languages (Hindi, Tamil, Kannada)
+- Add user authentication and personalized recommendations
+- Implement real-time streaming for latest reviews
+- Integrate more data sources (YouTube, IMDb, Reddit)
+
+### 12.2 Advanced AI Features
+- Use LLMs for review summarization
+- Generate Telugu explanations for recommendations
+- Implement conversational AI for movie queries
+- Add multi-modal analysis (images, videos)
+
+### 12.3 Scalability Improvements
+- Migrate to microservices architecture
+- Implement distributed computing for data processing
+- Use Kubernetes for orchestration
+- Add CDN for global reach
+
+## 13. DELIVERABLES
+
+### 13.1 Code Deliverables
+- Backend API (FastAPI) with complete endpoints
+- Frontend web application (HTML/CSS/JS)
+- Deep learning model (trained Siamese Network)
+- Database schema and migration scripts
+- Agentic AI workflow implementation
+
+### 13.2 Documentation
+- Technical documentation (API docs, architecture diagrams)
+- User manual (how to use the system)
+- Model training documentation
+- Deployment guide
+
+### 13.3 Testing Artifacts
+- Unit test suite with >80% code coverage
+- Integration test cases
+- Performance test results
+- User acceptance test report
+
+### 13.4 Presentation
+- Project demo video
+- Final presentation slides
+- Research paper or technical report
+
+## 14. CONCLUSION
+
+This PRD defines a comprehensive plan for building an intelligent Telugu movie recommendation system using Agentic AI and Deep Learning. The system addresses critical gaps in existing solutions by supporting regional languages, automating workflows, and providing context-aware recommendations. By following this structured approach, the project will deliver a scalable, accurate, and user-friendly recommendation platform that serves Telugu-speaking audiences effectively.
+
+---
+
+**Document Version**: 1.0  
+**Last Updated**: December 5, 2025  
+**Project Owner**: Final Year Project Team  
+**Estimated Duration**: 14 weeks  
+**Technology Stack**: Python, FastAPI, HTML/CSS/JS, PostgreSQL/MongoDB, TensorFlow/PyTorch, Twitter API, TMDB API

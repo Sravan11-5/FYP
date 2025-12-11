@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Telugu Movie Recommendation System - Search for Telugu movies and get intelligent recommendations">
+    <title>తెలుగు సినిమా సిఫార్సులు | Telugu Movie Recommendations</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Google Fonts for Telugu Support -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎬 తెలుగు సినిమా సిఫార్సులు</h1>
+                <p class="subtitle">AI-Powered Telugu Movie Recommendations</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h2 class="hero-title">మీ ఇష్టమైన సినిమాను కనుగొనండి</h2>
+                <p class="hero-description">Find Your Next Favorite Telugu Movie</p>
+            </section>
+
+            <!-- Search Section -->
+            <section class="search-section">
+                <form id="searchForm" class="search-form" role="search">
+                    <div class="search-container">
+                        <div class="search-input-wrapper">
+                            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                            <input 
+                                type="text" 
+                                id="searchInput" 
+                                class="search-input" 
+                                placeholder="సినిమా పేరు టైప్ చేయండి... (Enter movie name in Telugu or English)"
+                                required
+                                autocomplete="off"
+                                aria-label="Search for Telugu movies"
+                            >
+                        </div>
+                        <button type="submit" class="search-button" id="searchButton">
+                            <span class="button-text">వెతకండి</span>
+                            <span class="button-text-en">Search</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="loading-indicator hidden" role="status" aria-live="polite">
+                    <div class="spinner"></div>
+                    <p class="loading-text">సినిమాలను వెతుకుతున్నాము... Searching for movies...</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="error-message hidden" role="alert">
+                    <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <p id="errorText"></p>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="resultsSection" class="results-section hidden">
+                <h3 class="results-title">శోధన ఫలితాలు | Search Results</h3>
+                <div id="resultsContainer" class="results-container">
+                    <!-- Results will be dynamically inserted here -->
+                </div>
+            </section>
+
+            <!-- Recommendations Section -->
+            <section id="recommendationsSection" class="recommendations-section hidden">
+                <h3 class="recommendations-title">సిఫార్సు చేయబడిన సినిమాలు | Recommended Movies</h3>
+                <div id="recommendationsContainer" class="recommendations-container">
+                    <!-- Recommendations will be dynamically inserted here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Movie Detail Modal -->
+    <div id="movieModal" class="modal hidden" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+        <div class="modal-overlay" onclick="closeMovieModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeMovieModal()" aria-label="Close modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div id="modalBody" class="modal-body">
+                <!-- Movie details will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Telugu Movie Recommendation System | Powered by AI & Deep Learning</p>
+            <p class="footer-tech">Built with FastAPI, MongoDB, PyTorch & Siamese Networks</p>
+        </div>
+    </footer>
+
+    <!-- Movie Detail Modal -->
+    <div id="movieModal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeMovieModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeMovieModal()" aria-label="Close modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/app.js"></script>
+</body>
+</html>

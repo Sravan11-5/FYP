@@ -1,0 +1,2028 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "Set up FastAPI backend structure",
+        "description": "Initialize the FastAPI project with necessary configurations and folder structure.",
+        "details": "1. Create a new FastAPI project.\n2. Define basic project structure (e.g., main.py, models/, routes/, utils/).\n3. Configure basic settings (CORS, middleware).\n4. Implement basic exception handling.\n5. Set up logging.",
+        "testStrategy": "1. Verify the FastAPI application starts without errors.\n2. Check if the basic project structure is correctly set up.\n3. Test the logging configuration.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create FastAPI Project",
+            "description": "Initialize a new FastAPI project using pip and create the main application file.",
+            "dependencies": [],
+            "details": "Use `pip install fastapi uvicorn` to install dependencies. Create a `main.py` file with a basic FastAPI app instance.",
+            "status": "done",
+            "testStrategy": "Verify the FastAPI application starts without errors.",
+            "updatedAt": "2025-12-05T06:17:03.159Z",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Define Project Structure",
+            "description": "Establish the basic folder structure for the FastAPI project.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create folders for `models`, `routes`, and `utils`. Add `__init__.py` files to make them packages.",
+            "status": "done",
+            "testStrategy": "Check if the basic project structure is correctly set up.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T06:17:03.191Z"
+          },
+          {
+            "id": 3,
+            "title": "Configure Basic Settings",
+            "description": "Configure essential settings such as CORS and middleware.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement CORS middleware to handle cross-origin requests. Configure other necessary middleware.",
+            "status": "done",
+            "testStrategy": "Test CORS configuration by making requests from different origins.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T06:17:03.199Z"
+          },
+          {
+            "id": 4,
+            "title": "Implement Exception Handling",
+            "description": "Implement basic exception handling for the FastAPI application.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create custom exception classes and exception handlers for common errors. Implement global exception handling.",
+            "status": "done",
+            "testStrategy": "Simulate different error scenarios and verify the exception handlers are working correctly.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T06:17:03.205Z"
+          },
+          {
+            "id": 5,
+            "title": "Set Up Logging",
+            "description": "Configure logging for the FastAPI application.",
+            "dependencies": [
+              2
+            ],
+            "details": "Set up a logging configuration using Python's logging module. Configure log levels and output format. Integrate logging into the application.",
+            "status": "done",
+            "testStrategy": "Test the logging configuration by generating log messages and verifying they are written to the correct output.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T06:17:03.212Z"
+          }
+        ],
+        "complexity": 4,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break down the task into subtasks for creating the FastAPI project, defining the project structure, configuring settings, implementing exception handling, and setting up logging.",
+        "updatedAt": "2025-12-05T06:17:03.212Z"
+      },
+      {
+        "id": "2",
+        "title": "Implement database schema and models",
+        "description": "Define the database schema for Movies, Reviews, Genres, Ratings, User Searches, and Movie Relationships using PostgreSQL or MongoDB.",
+        "details": "1. Choose either PostgreSQL or MongoDB based on project requirements.\n2. Define database models using SQLAlchemy (for PostgreSQL) or Pydantic (for MongoDB).\n3. Create tables/collections for Movies, Reviews, User_Searches, and Movie_Relationships.\n4. Implement relationships between tables/collections.\n5. Add indexes for efficient data retrieval (movie_id, tmdb_id, tweet_id).",
+        "testStrategy": "1. Verify database connection.\n2. Check if tables/collections are created correctly.\n3. Test CRUD operations on each table/collection.\n4. Validate relationships between tables/collections.",
+        "priority": "high",
+        "dependencies": [
+          "1"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Choose Database System",
+            "description": "Select either PostgreSQL or MongoDB based on project requirements and team expertise.",
+            "dependencies": [],
+            "details": "Evaluate the pros and cons of each database system considering scalability, data structure, and ease of use. Document the decision and justification.",
+            "status": "done",
+            "testStrategy": null,
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T06:27:37.133Z"
+          },
+          {
+            "id": 2,
+            "title": "Define Database Models",
+            "description": "Define the database models for Movies, Reviews, Genres, Ratings, User Searches, and Movie Relationships.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use SQLAlchemy for PostgreSQL or Pydantic for MongoDB to define the models. Include data types, constraints, and relationships between entities. Consider data validation requirements.",
+            "status": "done",
+            "testStrategy": null,
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T06:27:37.146Z"
+          },
+          {
+            "id": 3,
+            "title": "Create Tables/Collections",
+            "description": "Create the necessary tables or collections in the chosen database system.",
+            "dependencies": [
+              2
+            ],
+            "details": "Based on the defined models, create tables for PostgreSQL or collections for MongoDB. Ensure proper data types and constraints are applied. Verify table/collection creation.",
+            "status": "done",
+            "testStrategy": "Verify tables/collections are created correctly with appropriate schema.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T06:27:37.157Z"
+          },
+          {
+            "id": 4,
+            "title": "Implement Relationships",
+            "description": "Implement the relationships between the different tables/collections.",
+            "dependencies": [
+              3
+            ],
+            "details": "Define foreign key relationships in PostgreSQL or embedded/referenced relationships in MongoDB. Ensure data integrity and consistency across related entities. Test relationship integrity.",
+            "status": "done",
+            "testStrategy": "Validate relationships between tables/collections using CRUD operations.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T06:27:37.163Z"
+          },
+          {
+            "id": 5,
+            "title": "Add Indexes",
+            "description": "Add indexes to the database for efficient data retrieval.",
+            "dependencies": [
+              3
+            ],
+            "details": "Add indexes to columns frequently used in queries, such as movie_id, tmdb_id, and tweet_id. Analyze query performance and adjust indexes accordingly. Monitor index usage.",
+            "status": "done",
+            "testStrategy": "Measure query performance before and after adding indexes.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T06:27:37.169Z"
+          }
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break down the task into subtasks for choosing the database, defining models, creating tables/collections, implementing relationships, and adding indexes.",
+        "updatedAt": "2025-12-05T06:27:37.169Z"
+      },
+      {
+        "id": "3",
+        "title": "Create basic frontend UI (search page)",
+        "description": "Develop a simple HTML/CSS/JavaScript interface for the search page.",
+        "details": "1. Create an HTML file with a search input field and a submit button.\n2. Style the page using CSS for a clean and modern look.\n3. Implement JavaScript to handle user input and display loading indicators.\n4. Ensure the UI is responsive and mobile-friendly.",
+        "testStrategy": "1. Verify the search page is displayed correctly in different browsers.\n2. Check if the input field and submit button are functional.\n3. Test the responsive design on different screen sizes.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create HTML structure for search page",
+            "description": "Develop the basic HTML structure with a search input field and submit button.",
+            "dependencies": [],
+            "details": "Create an HTML file with a form containing an input field for the search query and a submit button. Ensure proper semantic HTML is used.",
+            "status": "done",
+            "testStrategy": "Verify the HTML structure is valid and contains the necessary elements.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T07:09:40.788Z"
+          },
+          {
+            "id": 2,
+            "title": "Style search page with CSS",
+            "description": "Apply CSS styles to create a clean and modern look for the search page.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use CSS to style the search input field, submit button, and overall page layout. Focus on creating a visually appealing and user-friendly design.",
+            "status": "done",
+            "testStrategy": "Verify the CSS styles are applied correctly and the page looks as designed in different browsers.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T07:09:40.796Z"
+          },
+          {
+            "id": 3,
+            "title": "Implement JavaScript functionality",
+            "description": "Implement JavaScript to handle user input and display loading indicators.",
+            "dependencies": [
+              1
+            ],
+            "details": "Add JavaScript to handle form submission, display a loading indicator while the search query is being processed, and handle any potential errors.",
+            "status": "done",
+            "testStrategy": "Verify the JavaScript functionality works as expected, including form submission and loading indicator display.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T07:09:40.806Z"
+          },
+          {
+            "id": 4,
+            "title": "Ensure responsiveness of the search page",
+            "description": "Make the search page responsive and mobile-friendly.",
+            "dependencies": [
+              2
+            ],
+            "details": "Use CSS media queries to ensure the search page adapts to different screen sizes and devices. Test on various devices and screen resolutions.",
+            "status": "done",
+            "testStrategy": "Verify the search page is responsive and displays correctly on different screen sizes and devices.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T07:09:40.814Z"
+          }
+        ],
+        "complexity": 3,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for creating the HTML structure, styling with CSS, implementing JavaScript functionality, and ensuring responsiveness.",
+        "updatedAt": "2025-12-05T07:09:40.814Z"
+      },
+      {
+        "id": "4",
+        "title": "Integrate TMDB API and Twitter API",
+        "description": "Set up API clients for fetching movie metadata from TMDB and movie reviews from Twitter.",
+        "details": "1. Install necessary libraries for making API requests (e.g., `requests`, `tweepy`).\n2. Create API clients for TMDB and Twitter using API keys and bearer tokens.\n3. Implement functions to fetch movie data from TMDB by movie name.\n4. Implement functions to search Twitter for movie reviews in Telugu.\n5. Store API keys securely using environment variables or a secrets management service.",
+        "testStrategy": "1. Verify API clients are initialized correctly.\n2. Check if movie data can be fetched from TMDB using a movie name.\n3. Test if movie reviews can be fetched from Twitter in Telugu.\n4. Validate API key security.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Install TMDB and Twitter API Libraries",
+            "description": "Install the necessary Python libraries for interacting with the TMDB and Twitter APIs (e.g., `requests`, `tweepy`).",
+            "dependencies": [],
+            "details": "Use `pip install requests tweepy` to install the libraries. Verify installation by importing them in a Python shell.",
+            "status": "done",
+            "testStrategy": "Verify that the libraries are installed correctly by importing them in a Python script without errors.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T07:14:15.910Z"
+          },
+          {
+            "id": 2,
+            "title": "Create TMDB API Client",
+            "description": "Create an API client for TMDB using the API key obtained from the TMDB developer portal.",
+            "dependencies": [],
+            "details": "Initialize a `requests` session with the TMDB API base URL and API key. Implement error handling for API requests.",
+            "status": "done",
+            "testStrategy": "Test the API client by making a simple request to the TMDB API and verifying the response.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T07:14:15.923Z"
+          },
+          {
+            "id": 3,
+            "title": "Create Twitter API Client",
+            "description": "Create an API client for Twitter using `tweepy` and the API keys and bearer token obtained from the Twitter developer portal.",
+            "dependencies": [],
+            "details": "Authenticate with the Twitter API using OAuth 2.0 Bearer Token flow. Handle rate limits and errors appropriately.",
+            "status": "done",
+            "testStrategy": "Test the API client by making a simple request to the Twitter API and verifying the response.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T07:14:15.928Z"
+          },
+          {
+            "id": 4,
+            "title": "Implement TMDB Movie Data Fetching",
+            "description": "Implement a function to fetch movie data from TMDB by movie name using the TMDB API client.",
+            "dependencies": [
+              2
+            ],
+            "details": "Use the TMDB API's search endpoint to find movies by name. Parse the JSON response and extract relevant movie data.",
+            "status": "done",
+            "testStrategy": "Test the function with various movie names and verify that the correct movie data is returned.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T07:14:15.941Z"
+          },
+          {
+            "id": 5,
+            "title": "Implement Twitter Review Search",
+            "description": "Implement a function to search Twitter for movie reviews in Telugu using the Twitter API client.",
+            "dependencies": [
+              3
+            ],
+            "details": "Use the Twitter API's search endpoint to find tweets containing movie reviews in Telugu. Filter tweets based on language and keywords.",
+            "status": "done",
+            "testStrategy": "Test the function with various movie names and verify that relevant Telugu movie reviews are returned.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-05T07:14:15.946Z"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break down the task into subtasks for installing libraries, creating API clients, fetching movie data from TMDB, searching Twitter for reviews, and storing API keys securely.",
+        "updatedAt": "2025-12-05T07:14:15.946Z"
+      },
+      {
+        "id": "5",
+        "title": "Implement basic API endpoints (search, health check)",
+        "description": "Create FastAPI endpoints for handling search requests and checking system health.",
+        "details": "1. Define a `POST /api/search` endpoint that accepts a movie name as input.\n2. Implement a `GET /api/health` endpoint that returns the system status.\n3. Use FastAPI's dependency injection to manage API clients and database connections.\n4. Implement input validation for the search endpoint.",
+        "testStrategy": "1. Verify the `GET /api/health` endpoint returns a success status.\n2. Check if the `POST /api/search` endpoint accepts movie names and returns a valid response (even if empty).\n3. Test input validation for the search endpoint.",
+        "priority": "high",
+        "dependencies": [
+          "1",
+          "2",
+          "4"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Define the POST /api/search endpoint",
+            "description": "Define the structure and functionality of the /api/search endpoint to accept movie name input.",
+            "dependencies": [],
+            "details": "Implement the endpoint using FastAPI, including request parsing and response formatting. Define the expected input data structure (e.g., JSON with a 'movie_name' field).",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement the GET /api/health endpoint",
+            "description": "Implement the /api/health endpoint to return the system's health status.",
+            "dependencies": [],
+            "details": "Create a simple endpoint that returns a JSON response indicating the system's status (e.g., {'status': 'ok'}). Ensure it returns a 200 OK status code.",
+            "status": "pending",
+            "testStrategy": "Verify the endpoint returns a success status.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement FastAPI dependency injection",
+            "description": "Use FastAPI's dependency injection to manage API clients and database connections.",
+            "dependencies": [],
+            "details": "Set up dependencies for API clients and database connections. Use FastAPI's `Depends` to inject these dependencies into the endpoint functions, ensuring proper resource management.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Implement input validation for the search endpoint",
+            "description": "Implement input validation for the /api/search endpoint to ensure data quality.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use Pydantic models to define the expected input data structure and validation rules. Implement error handling to return appropriate error messages for invalid input.",
+            "status": "pending",
+            "testStrategy": "Test input validation for the search endpoint.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for defining the search endpoint, implementing the health check endpoint, using dependency injection, and implementing input validation."
+      },
+      {
+        "id": "6",
+        "title": "Build data collection agents for TMDB and Twitter",
+        "description": "Develop agents to collect movie metadata from TMDB and reviews from Twitter.",
+        "details": "1. Create a `TMDBDataCollector` class to fetch movie metadata.\n2. Implement methods to search for movies by name, fetch movie details by ID, and discover similar movies by genre.\n3. Create a `TwitterDataCollector` class to fetch movie reviews.\n4. Implement methods to search for tweets mentioning a movie name in Telugu.\n5. Handle API rate limits and errors gracefully.",
+        "testStrategy": "1. Verify the `TMDBDataCollector` can fetch movie metadata correctly.\n2. Check if the `TwitterDataCollector` can fetch movie reviews in Telugu.\n3. Test error handling and rate limit management.",
+        "priority": "medium",
+        "dependencies": [
+          "4"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create TMDB Data Collector Class",
+            "description": "Develop a `TMDBDataCollector` class to fetch movie metadata from the TMDB API.",
+            "dependencies": [],
+            "details": "Implement the class structure, authentication, and initial API connection setup for TMDB.",
+            "status": "pending",
+            "testStrategy": "Verify the class initializes correctly and can connect to the TMDB API.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement TMDB Data Fetching Methods",
+            "description": "Implement methods to search for movies, fetch details, and discover similar movies.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement `search_movie`, `get_movie_details`, and `discover_similar_movies` methods using the TMDB API.",
+            "status": "pending",
+            "testStrategy": "Test each method with valid and invalid inputs to ensure correct data retrieval.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Create Twitter Data Collector Class",
+            "description": "Develop a `TwitterDataCollector` class to fetch movie reviews from the Twitter API.",
+            "dependencies": [],
+            "details": "Implement the class structure, authentication, and initial API connection setup for Twitter.",
+            "status": "pending",
+            "testStrategy": "Verify the class initializes correctly and can connect to the Twitter API.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Implement Twitter Review Fetching Method",
+            "description": "Implement a method to search for tweets mentioning a movie name in Telugu.",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement a `search_tweets` method that filters tweets by movie name and language (Telugu).",
+            "status": "pending",
+            "testStrategy": "Test the method with various Telugu movie names and verify the correct tweets are retrieved.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Implement API Rate Limit and Error Handling",
+            "description": "Implement robust error handling and rate limit management for both APIs.",
+            "dependencies": [
+              2,
+              4
+            ],
+            "details": "Implement retry mechanisms, error logging, and rate limit handling to prevent service disruptions.",
+            "status": "pending",
+            "testStrategy": "Simulate API errors and rate limits to ensure the application handles them gracefully.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break down the task into subtasks for creating the TMDB data collector, implementing methods for fetching movie data, creating the Twitter data collector, implementing methods for fetching reviews, and handling API rate limits."
+      },
+      {
+        "id": "7",
+        "title": "Implement duplicate prevention logic",
+        "description": "Prevent duplicate movie and review entries in the database.",
+        "details": "1. Before inserting a movie, check if it already exists in the database using `tmdb_id`.\n2. Before inserting a review, check if the `tweet_id` already exists in the database.\n3. If a movie or review already exists, skip the insertion or update the existing record if necessary.\n4. Use database indexes to optimize the lookup process.",
+        "testStrategy": "1. Verify that duplicate movies are not inserted into the database.\n2. Check that duplicate reviews are not inserted into the database.\n3. Test the update functionality for existing records.",
+        "priority": "medium",
+        "dependencies": [
+          "2",
+          "6"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement movie existence check",
+            "description": "Check if a movie already exists in the database using the `tmdb_id` before insertion.",
+            "dependencies": [],
+            "details": "Implement a function that queries the database for a movie with the given `tmdb_id`. Return True if found, False otherwise. Ensure proper error handling.",
+            "status": "pending",
+            "testStrategy": "Verify that the function correctly identifies existing movies based on `tmdb_id`.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement review existence check",
+            "description": "Check if a review already exists in the database using the `tweet_id` before insertion.",
+            "dependencies": [],
+            "details": "Implement a function that queries the database for a review with the given `tweet_id`. Return True if found, False otherwise. Ensure proper error handling.",
+            "status": "pending",
+            "testStrategy": "Verify that the function correctly identifies existing reviews based on `tweet_id`.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement update functionality for existing records",
+            "description": "Implement logic to update existing movie or review records if necessary.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "If a movie or review already exists, determine if an update is required based on new data. Implement the update logic using appropriate database operations.",
+            "status": "pending",
+            "testStrategy": "Verify that existing movie and review records are updated correctly when new data is available.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Optimize lookup process with database indexes",
+            "description": "Create database indexes on `tmdb_id` and `tweet_id` to optimize the lookup process.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create indexes on the `tmdb_id` column in the movies table and the `tweet_id` column in the reviews table. Analyze query performance before and after adding indexes.",
+            "status": "pending",
+            "testStrategy": "Measure the query execution time for movie and review lookups before and after adding indexes. Verify a significant performance improvement.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for checking for existing movies, checking for existing reviews, implementing update functionality, and using database indexes.",
+        "updatedAt": "2025-12-09T04:05:54.682Z"
+      },
+      {
+        "id": "8",
+        "title": "Create database storage functions",
+        "description": "Implement functions to store movie metadata and reviews in the database.",
+        "details": "1. Create functions to insert movie metadata into the `Movies` table.\n2. Create functions to insert reviews into the `Reviews` table.\n3. Handle database connection and transaction management.\n4. Implement error handling for database operations.",
+        "testStrategy": "1. Verify that movie metadata is stored correctly in the `Movies` table.\n2. Check that reviews are stored correctly in the `Reviews` table.\n3. Test error handling for database operations.",
+        "priority": "medium",
+        "dependencies": [
+          "2",
+          "7"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement movie metadata insertion function",
+            "description": "Create a function to insert movie metadata into the `Movies` table in the database.",
+            "dependencies": [
+              2
+            ],
+            "details": "Develop a function that takes movie metadata as input and inserts it into the `Movies` table. Ensure proper data validation and sanitization before insertion. Use SQLAlchemy or Pydantic models.",
+            "status": "pending",
+            "testStrategy": "Verify that movie metadata is stored correctly in the `Movies` table by querying the database after insertion.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement movie review insertion function",
+            "description": "Create a function to insert movie reviews into the `Reviews` table in the database.",
+            "dependencies": [
+              2
+            ],
+            "details": "Develop a function that takes movie review data as input and inserts it into the `Reviews` table. Ensure proper data validation and sanitization before insertion. Use SQLAlchemy or Pydantic models.",
+            "status": "pending",
+            "testStrategy": "Check that reviews are stored correctly in the `Reviews` table by querying the database after insertion.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Handle database connection and transactions",
+            "description": "Implement database connection and transaction management for data storage functions.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement a context manager or similar mechanism to handle database connections and transactions. Ensure proper opening and closing of connections, and commit or rollback transactions as needed. Handle potential connection errors.",
+            "status": "pending",
+            "testStrategy": "Simulate database connection errors and verify that transactions are rolled back correctly.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Implement error handling for database operations",
+            "description": "Implement error handling for database operations to ensure data integrity and application stability.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "Implement try-except blocks to catch potential database errors (e.g., connection errors, data validation errors, unique constraint violations). Log errors and provide informative error messages to the user or administrator. Implement retry mechanisms for transient errors.",
+            "status": "pending",
+            "testStrategy": "Simulate various database errors (e.g., invalid data, connection timeout) and verify that the error handling mechanism works correctly.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for creating functions to insert movie metadata, creating functions to insert reviews, handling database connection and transaction management, and implementing error handling.",
+        "updatedAt": "2025-12-09T04:05:54.689Z"
+      },
+      {
+        "id": "9",
+        "title": "Test data collection for multiple movies",
+        "description": "Test the data collection process for multiple movies to ensure scalability and reliability.",
+        "details": "1. Create a list of Telugu movie names.\n2. Use the data collection agents to fetch metadata and reviews for each movie.\n3. Store the data in the database.\n4. Monitor the process for errors and performance bottlenecks.",
+        "testStrategy": "1. Verify that data is collected for all movies in the list.\n2. Check for errors during the data collection process.\n3. Monitor the performance of the data collection process.",
+        "priority": "medium",
+        "dependencies": [
+          "6",
+          "8"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create a list of Telugu movie names",
+            "description": "Compile a list of Telugu movie names to be used for testing the data collection process.",
+            "dependencies": [],
+            "details": "Gather a diverse list of Telugu movie titles, including both popular and lesser-known films, ensuring a variety of data points for testing.",
+            "status": "pending",
+            "testStrategy": "Verify the list contains at least 50 Telugu movie names with correct spellings.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Fetch metadata and reviews for each movie",
+            "description": "Use data collection agents to fetch metadata and reviews for each movie in the list.",
+            "dependencies": [
+              1
+            ],
+            "details": "Utilize the TMDBDataCollector and TwitterDataCollector to gather metadata and reviews for each movie. Handle API rate limits and errors gracefully.",
+            "status": "pending",
+            "testStrategy": "Verify that metadata and reviews are fetched for at least 90% of the movies in the list without errors.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Store the data in the database",
+            "description": "Store the collected metadata and reviews in the database for each movie.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement the database storage logic to efficiently store the fetched metadata and reviews. Ensure data integrity and proper indexing for fast retrieval.",
+            "status": "pending",
+            "testStrategy": "Verify that all fetched data is correctly stored in the database and can be retrieved without errors.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Monitor the process for errors and performance bottlenecks",
+            "description": "Monitor the data collection process for errors and performance bottlenecks.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Implement monitoring tools to track the data collection process, identify errors, and detect performance bottlenecks. Log all errors and performance metrics for analysis.",
+            "status": "pending",
+            "testStrategy": "Verify that the monitoring system correctly identifies and logs all errors and performance bottlenecks during the data collection process.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 4,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for creating a list of movie names, fetching metadata and reviews for each movie, storing the data in the database, and monitoring the process for errors.",
+        "updatedAt": "2025-12-09T04:05:54.697Z"
+      },
+      {
+        "id": "10",
+        "title": "Implement error handling and retries",
+        "description": "Implement robust error handling and retry mechanisms for API calls and database operations.",
+        "details": "1. Implement try-except blocks to catch exceptions during API calls and database operations.\n2. Implement retry mechanisms with exponential backoff for failed API calls.\n3. Log all errors and exceptions for debugging purposes.\n4. Implement circuit breaker pattern to prevent cascading failures.",
+        "testStrategy": "1. Verify that errors are handled gracefully.\n2. Check that API calls are retried automatically after a failure.\n3. Test the circuit breaker pattern.",
+        "priority": "medium",
+        "dependencies": [
+          "6",
+          "8"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement try-except blocks",
+            "description": "Implement try-except blocks to catch exceptions during API calls and database operations.",
+            "dependencies": [],
+            "details": "Implement try-except blocks to handle potential exceptions during API calls and database interactions, ensuring graceful error handling.",
+            "status": "pending",
+            "testStrategy": "Verify that exceptions are caught and handled correctly in API calls and database operations.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement retry mechanisms with exponential backoff",
+            "description": "Implement retry mechanisms with exponential backoff for failed API calls.",
+            "dependencies": [],
+            "details": "Implement retry logic with exponential backoff for failed API calls to improve resilience and reliability. Configure maximum retries and backoff factors.",
+            "status": "pending",
+            "testStrategy": "Test the retry mechanism by simulating API call failures and verifying that retries are performed with exponential backoff.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement error logging",
+            "description": "Log all errors and exceptions for debugging purposes.",
+            "dependencies": [],
+            "details": "Implement comprehensive error logging to capture all exceptions and errors, including timestamps, error messages, and relevant context for debugging.",
+            "status": "pending",
+            "testStrategy": "Verify that all errors and exceptions are logged correctly with sufficient detail for debugging purposes.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Implement circuit breaker pattern",
+            "description": "Implement circuit breaker pattern to prevent cascading failures.",
+            "dependencies": [],
+            "details": "Implement a circuit breaker pattern to prevent cascading failures by monitoring API call success rates and temporarily halting calls when failure rates exceed a threshold.",
+            "status": "pending",
+            "testStrategy": "Test the circuit breaker pattern by simulating API call failures and verifying that the circuit breaker opens and prevents further calls after a certain failure threshold is reached.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for implementing try-except blocks, implementing retry mechanisms, logging errors, and implementing a circuit breaker pattern.",
+        "updatedAt": "2025-12-09T04:05:54.708Z"
+      },
+      {
+        "id": "11",
+        "title": "Collect and prepare Telugu movie reviews dataset",
+        "description": "Gather and preprocess a dataset of Telugu movie reviews for training the Siamese Network.",
+        "details": "1. Scrape Telugu movie reviews from various sources (if necessary, supplement with existing datasets).\n2. Clean the data by removing irrelevant characters, HTML tags, and noise.\n3. Tokenize the reviews using a Telugu tokenizer.\n4. Split the dataset into training, validation, and testing sets (80/10/10 split).",
+        "testStrategy": "1. Verify the dataset contains a sufficient number of Telugu movie reviews (50,000+).\n2. Check the quality of the cleaned and tokenized data.\n3. Validate the dataset split.",
+        "priority": "medium",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Scrape Telugu movie reviews",
+            "description": "Gather Telugu movie reviews from various online sources, supplementing with existing datasets if needed.",
+            "dependencies": [],
+            "details": "Implement web scraping scripts to extract reviews from sites like Idlebrain, Greatandhra, and others. Handle pagination and data extraction efficiently.",
+            "status": "pending",
+            "testStrategy": "Verify the scraper collects reviews and metadata accurately. Check for missing data and scraper errors.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Clean Telugu movie review data",
+            "description": "Clean the scraped data by removing irrelevant characters, HTML tags, and noise from the reviews.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use regular expressions and string manipulation techniques to remove HTML tags, special characters, and irrelevant information. Handle Telugu-specific character encoding issues.",
+            "status": "pending",
+            "testStrategy": "Check the cleaned data for the absence of HTML tags and irrelevant characters. Verify the integrity of Telugu characters.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Tokenize Telugu movie reviews",
+            "description": "Tokenize the cleaned Telugu movie reviews using a suitable Telugu tokenizer.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement or integrate a Telugu tokenizer (e.g., using Indic NLP Library) to split the reviews into individual tokens. Handle compound words and morphological variations.",
+            "status": "pending",
+            "testStrategy": "Verify the tokenizer correctly splits the reviews into tokens. Check for proper handling of Telugu-specific linguistic features.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Split dataset into training, validation, and testing sets",
+            "description": "Divide the tokenized dataset into training, validation, and testing sets with an 80/10/10 split.",
+            "dependencies": [
+              3
+            ],
+            "details": "Implement a function to split the dataset randomly into training (80%), validation (10%), and testing (10%) sets. Ensure data is shuffled before splitting.",
+            "status": "pending",
+            "testStrategy": "Verify the dataset split ratios are correct. Check for data leakage between the sets.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 7,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for scraping reviews, cleaning the data, tokenizing the reviews, and splitting the dataset.",
+        "updatedAt": "2025-12-09T04:05:03.797Z"
+      },
+      {
+        "id": "12",
+        "title": "Design and implement Siamese Network architecture",
+        "description": "Create the Siamese Network architecture for sentiment analysis and domain classification.",
+        "details": "1. Choose a pre-trained Telugu embedding model (FastText, Word2Vec, or BERT-based).\n2. Implement the Siamese branches with identical network structures (e.g., CNN or LSTM layers).\n3. Add a classification layer for sentiment analysis (positive/negative/neutral).\n4. Add a multi-label classification layer for domain classification (acting, story, music, direction, cinematography).\n5. Define the loss function (contrastive loss or triplet loss) and optimizer (Adam).",
+        "testStrategy": "1. Verify the Siamese Network architecture is correctly implemented.\n2. Check the input and output shapes of each layer.\n3. Validate the loss function and optimizer.",
+        "priority": "medium",
+        "dependencies": [
+          "11"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Choose Pre-trained Telugu Embedding Model",
+            "description": "Select the most suitable pre-trained Telugu embedding model (FastText, Word2Vec, or BERT-based) for the Siamese Network.",
+            "dependencies": [],
+            "details": "Evaluate the performance of FastText, Word2Vec, and BERT-based models on a small sample of the dataset. Consider factors like speed, accuracy, and resource requirements. Document the selection process and justification.",
+            "status": "pending",
+            "testStrategy": "Compare the performance of different embedding models on a validation set.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement Siamese Network Branches",
+            "description": "Implement the Siamese branches with identical network structures (e.g., CNN or LSTM layers).",
+            "dependencies": [
+              1
+            ],
+            "details": "Design and implement the Siamese branches using either CNN or LSTM layers. Ensure that both branches have identical architectures and share weights. Implement the forward pass for each branch.",
+            "status": "pending",
+            "testStrategy": "Verify the output shapes of each branch and ensure weight sharing is implemented correctly.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Add Sentiment Analysis Classification Layer",
+            "description": "Add a classification layer for sentiment analysis (positive/negative/neutral).",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement a classification layer on top of the Siamese branches to predict sentiment (positive, negative, or neutral). Use a softmax activation function for the output layer.",
+            "status": "pending",
+            "testStrategy": "Check the output probabilities for each sentiment class and ensure they sum to 1.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Add Multi-Label Domain Classification Layer",
+            "description": "Add a multi-label classification layer for domain classification (acting, story, music, direction, cinematography).",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement a multi-label classification layer on top of the Siamese branches to predict the domain (acting, story, music, direction, cinematography). Use a sigmoid activation function for the output layer.",
+            "status": "pending",
+            "testStrategy": "Verify the output probabilities for each domain class and ensure they are independent.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "Define Loss Function and Optimizer",
+            "description": "Define the loss function (contrastive loss or triplet loss) and optimizer (Adam).",
+            "dependencies": [
+              2,
+              3,
+              4
+            ],
+            "details": "Choose either contrastive loss or triplet loss as the loss function. Implement the chosen loss function. Select the Adam optimizer and configure its parameters (learning rate, beta values).",
+            "status": "pending",
+            "testStrategy": "Validate the loss function by checking its value decreases during training. Monitor the optimizer's performance during training.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 8,
+        "recommendedSubtasks": 5,
+        "expansionPrompt": "Break down the task into subtasks for choosing a pre-trained embedding model, implementing the Siamese branches, adding a classification layer, adding a multi-label classification layer, and defining the loss function and optimizer.",
+        "updatedAt": "2025-12-09T04:05:03.809Z"
+      },
+      {
+        "id": "13",
+        "title": "Train model on labeled data",
+        "description": "Train the Siamese Network on the prepared Telugu movie reviews dataset.",
+        "details": "1. Load the training dataset.\n2. Train the Siamese Network for 20-50 epochs with early stopping.\n3. Monitor the training and validation loss and accuracy.\n4. Save the model checkpoints.",
+        "testStrategy": "1. Verify the model is training correctly.\n2. Check the training and validation loss and accuracy curves.\n3. Validate the model checkpoints.",
+        "priority": "medium",
+        "dependencies": [
+          "12"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Load training dataset",
+            "description": "Load the prepared Telugu movie reviews dataset for training the Siamese Network.",
+            "dependencies": [],
+            "details": "Implement data loading from the prepared dataset files. Ensure correct format and preprocessing steps are applied. Verify data integrity after loading.",
+            "status": "pending",
+            "testStrategy": "Verify the dataset is loaded correctly and the data format is as expected.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Train Siamese Network",
+            "description": "Train the Siamese Network for sentiment analysis and domain classification.",
+            "dependencies": [
+              1
+            ],
+            "details": "Train the Siamese Network for 20-50 epochs with early stopping. Use contrastive loss or triplet loss. Monitor training and validation loss and accuracy. Adjust hyperparameters as needed.",
+            "status": "pending",
+            "testStrategy": "Verify the model is training correctly and the loss is decreasing. Check the training and validation loss and accuracy curves.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Monitor training process",
+            "description": "Monitor the training and validation loss and accuracy during the training process.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement logging and visualization of training and validation loss and accuracy. Use TensorBoard or similar tools to track the training progress. Set up alerts for unexpected behavior.",
+            "status": "pending",
+            "testStrategy": "Verify the training and validation loss and accuracy are being monitored correctly. Check the visualization tools are working as expected.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Save model checkpoints",
+            "description": "Save the model checkpoints during training for later use.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement saving model checkpoints at regular intervals or when the validation loss improves. Use a consistent naming convention for the checkpoints. Ensure the checkpoints can be loaded correctly.",
+            "status": "pending",
+            "testStrategy": "Verify the model checkpoints are being saved correctly. Check the checkpoints can be loaded and the model can be restored.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for loading the training dataset, training the Siamese Network, monitoring the training process, and saving the model checkpoints.",
+        "updatedAt": "2025-12-09T04:05:03.817Z"
+      },
+      {
+        "id": "14",
+        "title": "Evaluate model performance",
+        "description": "Evaluate the performance of the trained Siamese Network on the test dataset.",
+        "details": "1. Load the test dataset.\n2. Evaluate the model on the test dataset.\n3. Calculate the accuracy, F1-score, and inference time.\n4. Analyze the results and identify areas for improvement.",
+        "testStrategy": "1. Verify the model achieves the target accuracy (>85%) and F1-score (>0.80).\n2. Check the inference time is less than 10ms per review.\n3. Analyze the confusion matrix.",
+        "priority": "medium",
+        "dependencies": [
+          "13"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Load the test dataset",
+            "description": "Load the test dataset for evaluating the Siamese Network.",
+            "dependencies": [
+              14
+            ],
+            "details": "Implement the data loading pipeline to load the test dataset from the specified location. Ensure data is preprocessed as needed.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Evaluate the model on the test dataset",
+            "description": "Evaluate the trained Siamese Network on the loaded test dataset.",
+            "dependencies": [
+              1
+            ],
+            "details": "Pass the test dataset through the trained Siamese Network to generate predictions. Store the predictions for further analysis.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Calculate performance metrics",
+            "description": "Calculate accuracy, F1-score, and inference time.",
+            "dependencies": [
+              2
+            ],
+            "details": "Calculate the accuracy, F1-score, and average inference time based on the predictions and ground truth labels. Use appropriate libraries.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Analyze results and identify improvements",
+            "description": "Analyze the calculated metrics and identify areas for improvement.",
+            "dependencies": [
+              3
+            ],
+            "details": "Analyze the accuracy, F1-score, and inference time to identify potential areas for model improvement. Document the findings and suggest solutions.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for loading the test dataset, evaluating the model, calculating performance metrics, and analyzing the results.",
+        "updatedAt": "2025-12-09T04:05:03.833Z"
+      },
+      {
+        "id": "15",
+        "title": "Integrate model into backend for inference",
+        "description": "Integrate the trained Siamese Network into the FastAPI backend for sentiment analysis and domain classification.",
+        "details": "1. Load the trained model on application startup.\n2. Create a function to process reviews using the model.\n3. Implement batch processing for reviews to improve performance.\n4. Use GPU if available, fallback to CPU.",
+        "testStrategy": "1. Verify the model is loaded correctly on application startup.\n2. Check that reviews are processed correctly using the model.\n3. Test the batch processing functionality.\n4. Validate GPU utilization.",
+        "priority": "medium",
+        "dependencies": [
+          "5",
+          "14"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Load Trained Model",
+            "description": "Load the trained Siamese Network model into the FastAPI application on startup.",
+            "dependencies": [],
+            "details": "Implement a function to load the model from a specified path during application initialization. Handle potential file not found or loading errors. Ensure the model is loaded only once.",
+            "status": "pending",
+            "testStrategy": "Verify the model is loaded correctly on application startup by checking its presence and functionality.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Create Review Processing Function",
+            "description": "Develop a function to process individual review texts using the loaded Siamese Network model.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement a function that takes a review text as input, preprocesses it, and feeds it to the Siamese Network for sentiment analysis and domain classification. Return the predicted sentiment score and domain.",
+            "status": "pending",
+            "testStrategy": "Check that reviews are processed correctly using the model and that the sentiment score and domain are returned.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement Batch Processing",
+            "description": "Implement batch processing for reviews to improve the overall inference performance.",
+            "dependencies": [
+              2
+            ],
+            "details": "Modify the review processing function to accept a list of reviews as input. Process the reviews in batches to leverage the model's parallel processing capabilities. Return a list of sentiment scores and domains.",
+            "status": "pending",
+            "testStrategy": "Test the batch processing functionality with varying batch sizes to optimize performance. Verify that the results are consistent with individual review processing.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Implement GPU/CPU Fallback",
+            "description": "Implement logic to utilize GPU if available, and gracefully fallback to CPU if no GPU is detected.",
+            "dependencies": [
+              1,
+              2,
+              3
+            ],
+            "details": "Check for GPU availability using CUDA or similar libraries. Configure the model to use the GPU if available, otherwise, configure it to use the CPU. Log the device being used.",
+            "status": "pending",
+            "testStrategy": "Validate GPU utilization when available and verify the fallback to CPU when no GPU is present. Compare performance between GPU and CPU processing.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 7,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for loading the trained model, creating a function to process reviews, implementing batch processing, and using GPU if available."
+      },
+      {
+        "id": "16",
+        "title": "Develop context-aware recommendation algorithm",
+        "description": "Create an algorithm to generate movie recommendations based on sentiment scores, genre, and rating.",
+        "details": "1. Analyze sentiment scores of user input movie.\n2. Compare with sentiment scores of similar movies.\n3. Weight recommendations by genre match, rating similarity, and positive sentiment.\n4. Rank movies by recommendation score.",
+        "testStrategy": "1. Verify the recommendation algorithm generates relevant recommendations.\n2. Check the weighting and ranking logic.\n3. Validate the recommendation scores.",
+        "priority": "medium",
+        "dependencies": [
+          "15"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Analyze Sentiment Scores",
+            "description": "Analyze sentiment scores of user input movies using NLP techniques.",
+            "dependencies": [],
+            "details": "Implement sentiment analysis on movie reviews to determine positive, negative, or neutral sentiment. Use libraries like NLTK or spaCy. Store sentiment scores in the database.",
+            "status": "pending",
+            "testStrategy": "Verify sentiment scores are accurately calculated for a sample of movies.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Compare with Similar Movies",
+            "description": "Compare sentiment scores with similar movies based on genre and other features.",
+            "dependencies": [
+              1
+            ],
+            "details": "Fetch similar movies based on genre and rating. Compare sentiment scores of the input movie with those of similar movies. Calculate a similarity score based on sentiment.",
+            "status": "pending",
+            "testStrategy": "Check if the similarity scores are correctly calculated based on sentiment and other features.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Weight Recommendations",
+            "description": "Weight recommendations by genre match, rating similarity, and positive sentiment.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement a weighting mechanism that considers genre match, rating similarity, and positive sentiment. Assign weights to each factor and calculate a final recommendation score.",
+            "status": "pending",
+            "testStrategy": "Validate the weighting logic and ensure that recommendations are appropriately weighted.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Rank Movies by Recommendation Score",
+            "description": "Rank movies by the calculated recommendation score to generate the final recommendations.",
+            "dependencies": [
+              3
+            ],
+            "details": "Sort movies based on the final recommendation score. Return the top N movies as recommendations. Implement pagination for displaying results.",
+            "status": "pending",
+            "testStrategy": "Verify that movies are correctly ranked based on the recommendation score and the top N movies are returned.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 7,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for analyzing sentiment scores, comparing with similar movies, weighting recommendations, and ranking movies.",
+        "updatedAt": "2025-12-09T04:05:03.845Z"
+      },
+      {
+        "id": "17",
+        "title": "Implement ranking and scoring logic",
+        "description": "Implement the logic for ranking and scoring movies based on multiple factors.",
+        "details": "1. Consider multiple factors: genre, rating, sentiment, recency.\n2. Apply weighted scoring algorithm.\n3. Return top 10-20 recommended movies.",
+        "testStrategy": "1. Verify the ranking and scoring logic is correctly implemented.\n2. Check the top 10-20 recommended movies are relevant.\n3. Validate the scoring algorithm.",
+        "priority": "medium",
+        "dependencies": [
+          "16"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Analyze and weigh movie factors",
+            "description": "Analyze genre, rating, sentiment, and recency to determine appropriate weights for each factor in the scoring algorithm.",
+            "dependencies": [],
+            "details": "Research existing weighting strategies. Analyze data to understand factor distributions. Define initial weights for each factor. Document the rationale.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement weighted scoring algorithm",
+            "description": "Implement the weighted scoring algorithm based on the analyzed factors and their weights.",
+            "dependencies": [
+              1
+            ],
+            "details": "Write code to calculate a score for each movie based on the defined weights. Ensure the algorithm is efficient and scalable. Handle missing data gracefully.",
+            "status": "pending",
+            "testStrategy": "Verify the scoring algorithm produces expected results for a range of movie data. Validate the scores are within a reasonable range.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Return top recommended movies",
+            "description": "Implement logic to return the top 10-20 movies based on their calculated scores.",
+            "dependencies": [
+              2
+            ],
+            "details": "Sort movies by score in descending order. Select the top 10-20 movies. Implement pagination if necessary. Return the list of movies.",
+            "status": "pending",
+            "testStrategy": "Check the returned movies are the top-scoring movies. Verify the correct number of movies are returned. Ensure the movies are sorted correctly.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for considering multiple factors, applying a weighted scoring algorithm, and returning the top recommended movies.",
+        "updatedAt": "2025-12-09T04:06:38.576Z"
+      },
+      {
+        "id": "18",
+        "title": "Generate explanations for recommendations",
+        "description": "Provide reasons for each recommendation (e.g., \"High positive sentiment in Telugu reviews\", \"Same genre with better ratings\").",
+        "details": "1. Generate explanations based on sentiment distribution, genre match, and rating similarity.\n2. Display sentiment distribution for each recommended movie.",
+        "testStrategy": "1. Verify the explanations are accurate and informative.\n2. Check the sentiment distribution is displayed correctly.",
+        "priority": "medium",
+        "dependencies": [
+          "17"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Generate explanations based on sentiment and genre",
+            "description": "Implement logic to generate explanations based on sentiment distribution and genre match.",
+            "dependencies": [
+              17
+            ],
+            "details": "1. Calculate sentiment scores for recommended movies. 2. Identify genre matches between the user's history and recommendations. 3. Formulate explanations based on these factors. Use sentiment scores and genre matching to create explanations.",
+            "status": "pending",
+            "testStrategy": "Verify that the generated explanations accurately reflect the sentiment and genre relationships.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Display sentiment distribution for recommendations",
+            "description": "Implement the display of sentiment distribution for each recommended movie.",
+            "dependencies": [
+              17
+            ],
+            "details": "1. Create a visual representation of the sentiment distribution (e.g., bar chart). 2. Integrate the visualization into the recommendation display. Ensure the sentiment distribution is displayed correctly.",
+            "status": "pending",
+            "testStrategy": "Check that the sentiment distribution is displayed correctly and is visually informative.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 2,
+        "expansionPrompt": "Break down the task into subtasks for generating explanations based on sentiment, genre, and rating, and displaying sentiment distribution.",
+        "updatedAt": "2025-12-09T04:06:38.596Z"
+      },
+      {
+        "id": "19",
+        "title": "Build agentic AI orchestrator",
+        "description": "Implement the agentic AI orchestrator to automate the end-to-end workflow.",
+        "details": "1. Use LangChain or custom agent framework.\n2. Define agent roles: Data Collector, Analyzer, Recommender.\n3. Implement tool use: TMDB API tool, Twitter API tool, Database tool, ML Model tool.",
+        "testStrategy": "1. Verify the agentic AI orchestrator is correctly implemented.\n2. Check the agent roles and tool use.",
+        "priority": "high",
+        "dependencies": [
+          "6",
+          "15",
+          "17"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Choose Agent Framework",
+            "description": "Select either LangChain or a custom agent framework for building the agentic AI orchestrator.",
+            "dependencies": [],
+            "details": "Research LangChain and other agent frameworks. Evaluate pros and cons. Document the decision-making process and chosen framework.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Define Agent Roles",
+            "description": "Define the roles and responsibilities of each agent within the orchestrator.",
+            "dependencies": [
+              1
+            ],
+            "details": "Specify the tasks and data access for Data Collector, Analyzer, and Recommender agents. Define communication protocols between agents.",
+            "status": "pending",
+            "testStrategy": "Verify that each agent role is correctly defined and that the agents can communicate with each other.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement Tool Use",
+            "description": "Implement the use of external tools by the agents.",
+            "dependencies": [
+              2
+            ],
+            "details": "Integrate TMDB API, Twitter API, Database tool, and ML Model tool. Ensure agents can access and utilize these tools effectively.",
+            "status": "pending",
+            "testStrategy": "Test each tool integration to ensure agents can access and use them correctly. Verify data retrieval and processing.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 8,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for choosing an agent framework, defining agent roles, and implementing tool use.",
+        "updatedAt": "2025-12-09T04:15:24.045Z"
+      },
+      {
+        "id": "20",
+        "title": "Automate end-to-end workflow",
+        "description": "Automate the entire recommendation workflow from user input to recommendation generation.",
+        "details": "1. Agent triggers data collection automatically upon user search.\n2. Coordinates TMDB and Twitter API calls.\n3. Manages database operations without manual intervention.\n4. Handles errors and retries automatically.",
+        "testStrategy": "1. Verify the end-to-end workflow is automated.\n2. Check the data collection, API calls, and database operations are managed automatically.\n3. Validate error handling and retries.",
+        "priority": "high",
+        "dependencies": [
+          "19"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Automated Data Collection Trigger",
+            "description": "Implement the agent to automatically trigger data collection upon user search, capturing relevant search queries.",
+            "dependencies": [],
+            "details": "Develop a function that listens for user search events and initiates the data collection process. Ensure proper logging and error handling.",
+            "status": "pending",
+            "testStrategy": "Verify that data collection is triggered automatically upon user search and that relevant search queries are captured.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Coordinate TMDB and Twitter API Calls",
+            "description": "Implement the coordination of TMDB and Twitter API calls to gather movie and social media data.",
+            "dependencies": [
+              1
+            ],
+            "details": "Develop functions to interact with the TMDB and Twitter APIs, handling authentication, rate limiting, and data retrieval. Implement error handling and retry mechanisms.",
+            "status": "pending",
+            "testStrategy": "Verify that the TMDB and Twitter API calls are coordinated correctly and that data is retrieved successfully.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Manage Database Operations",
+            "description": "Implement database operations for storing and retrieving movie, review, and user search data without manual intervention.",
+            "dependencies": [
+              2
+            ],
+            "details": "Develop functions to interact with the database (PostgreSQL or MongoDB), handling data insertion, retrieval, and updates. Implement error handling and transaction management.",
+            "status": "pending",
+            "testStrategy": "Verify that database operations are managed automatically and that data is stored and retrieved correctly.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Implement Error Handling and Retries",
+            "description": "Implement robust error handling and retry mechanisms for API calls and database operations.",
+            "dependencies": [
+              2,
+              3
+            ],
+            "details": "Develop functions to handle errors from API calls and database operations, implementing retry logic with exponential backoff. Implement logging for all errors and retries.",
+            "status": "pending",
+            "testStrategy": "Verify that error handling and retry mechanisms are implemented correctly and that errors are logged appropriately.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 7,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for triggering data collection, coordinating API calls, managing database operations, and handling errors.",
+        "updatedAt": "2025-12-09T04:22:01.108Z"
+      },
+      {
+        "id": "21",
+        "title": "Implement autonomous decision-making",
+        "description": "Implement autonomous decision-making within the agentic AI workflow.",
+        "details": "1. Agent decides whether to fetch new data or use cached data.\n2. Agent prioritizes tasks (e.g., fetch user movie first, then similar movies).\n3. Agent handles failures and retries automatically.",
+        "testStrategy": "1. Verify the agent makes correct decisions based on data availability and task priority.\n2. Check the agent handles failures and retries automatically.",
+        "priority": "high",
+        "dependencies": [
+          "20"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement data fetching decision logic",
+            "description": "Implement the logic for the agent to decide whether to fetch new data or use cached data based on staleness and relevance.",
+            "dependencies": [],
+            "details": "Develop a function that checks the age of cached data and compares it against a threshold. If the data is stale or irrelevant, fetch new data. Consider using a configuration file to define the threshold.",
+            "status": "pending",
+            "testStrategy": "Verify that the agent fetches new data when the cached data is stale or irrelevant, and uses cached data when it is fresh and relevant.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement task prioritization logic",
+            "description": "Implement the logic for the agent to prioritize tasks, such as fetching user movie data first, then similar movies.",
+            "dependencies": [],
+            "details": "Create a priority queue or similar data structure to manage tasks. Assign priorities to tasks based on their type (e.g., user movie, similar movie). Implement a scheduler to process tasks in order of priority.",
+            "status": "pending",
+            "testStrategy": "Verify that the agent processes tasks in the correct order of priority, with user movie data being fetched before similar movie data.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement failure handling and retry mechanism",
+            "description": "Implement the logic for the agent to handle failures and retries automatically, including exponential backoff.",
+            "dependencies": [],
+            "details": "Implement try-except blocks to catch exceptions during API calls and database operations. Implement a retry mechanism with exponential backoff for failed API calls. Log all errors and exceptions for debugging purposes.",
+            "status": "pending",
+            "testStrategy": "Verify that the agent handles failures gracefully and retries API calls automatically after a failure, using exponential backoff.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 8,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for deciding whether to fetch new data, prioritizing tasks, and handling failures.",
+        "updatedAt": "2025-12-09T06:25:20.128Z"
+      },
+      {
+        "id": "22",
+        "title": "Complete UI for search and results pages",
+        "description": "Develop the complete user interface for the search and results pages.",
+        "details": "1. Implement the search page with input field and submit button.\n2. Implement the results page to display recommended movies with details and explanations.\n3. Use HTML, CSS, and JavaScript for the UI.\n4. Ensure the UI is responsive and user-friendly.",
+        "testStrategy": "1. Verify the search and results pages are displayed correctly.\n2. Check the UI is responsive and user-friendly.",
+        "priority": "medium",
+        "dependencies": [
+          "3",
+          "18"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Search Page UI",
+            "description": "Develop the user interface for the search page, including the input field and submit button.",
+            "dependencies": [],
+            "details": "Use HTML, CSS, and JavaScript to create the search page UI. Ensure the input field and submit button are functional and visually appealing. Implement client-side validation.",
+            "status": "pending",
+            "testStrategy": "Verify the search page is displayed correctly and the input field and submit button are functional.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement Results Page UI",
+            "description": "Develop the user interface for the results page to display recommended movies with details and explanations.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use HTML, CSS, and JavaScript to create the results page UI. Display movie titles, descriptions, and explanations. Implement pagination or infinite scrolling for large result sets.",
+            "status": "pending",
+            "testStrategy": "Verify the results page is displayed correctly and movie details are displayed accurately.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Apply Styling with CSS",
+            "description": "Apply CSS styling to the search and results pages to ensure a visually appealing and consistent user experience.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Create a CSS stylesheet to style the search and results pages. Ensure consistent styling across all elements. Use a CSS framework (e.g., Bootstrap, Tailwind CSS) for efficiency.",
+            "status": "pending",
+            "testStrategy": "Verify the UI is styled correctly and consistently across all elements.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Ensure UI Responsiveness",
+            "description": "Ensure the UI is responsive and adapts to different screen sizes and devices.",
+            "dependencies": [
+              3
+            ],
+            "details": "Use CSS media queries to adjust the layout for different screen sizes. Test the UI on different devices and browsers. Ensure the UI is mobile-friendly and accessible.",
+            "status": "pending",
+            "testStrategy": "Verify the UI is responsive on different screen sizes and devices. Check the UI is mobile-friendly.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for implementing the search page, implementing the results page, using HTML, CSS, and JavaScript, and ensuring the UI is responsive.",
+        "updatedAt": "2025-12-09T06:37:45.168Z"
+      },
+      {
+        "id": "23",
+        "title": "Display recommendations with movie details",
+        "description": "Display the recommended movies with movie details and explanations on the results page.",
+        "details": "1. Show movie poster, title, genre, rating, sentiment score.\n2. Provide explanation for each recommendation.\n3. Click to view detailed movie information.",
+        "testStrategy": "1. Verify the movie details and explanations are displayed correctly.\n2. Check the click to view detailed movie information functionality.",
+        "priority": "medium",
+        "dependencies": [
+          "22"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Movie Details Display",
+            "description": "Implement the display of movie details including poster, title, genre, rating, and sentiment score on the results page.",
+            "dependencies": [
+              23
+            ],
+            "details": "Fetch movie details from the database and display them in a structured format using HTML/CSS. Ensure responsiveness for different screen sizes. Use appropriate UI elements for each detail.",
+            "status": "pending",
+            "testStrategy": "Verify that all movie details (poster, title, genre, rating, sentiment score) are displayed correctly and are responsive on different devices.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Provide Recommendation Explanations",
+            "description": "Generate and display explanations for each movie recommendation, such as sentiment analysis results or genre similarities.",
+            "dependencies": [
+              23,
+              18
+            ],
+            "details": "Integrate with the recommendation explanation service to fetch explanations. Display the explanations clearly next to each movie recommendation. Ensure explanations are informative and easy to understand.",
+            "status": "pending",
+            "testStrategy": "Verify that the explanations are accurate, informative, and displayed correctly for each recommended movie. Check for edge cases and ensure explanations are relevant.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Implement Click to View Detailed Information",
+            "description": "Implement the functionality to allow users to click on a movie recommendation to view detailed movie information.",
+            "dependencies": [
+              23
+            ],
+            "details": "Add a click event listener to each movie recommendation. Upon clicking, redirect the user to a detailed movie information page. Pass the movie ID to the detailed page. Ensure the detailed page displays all relevant information.",
+            "status": "pending",
+            "testStrategy": "Verify that clicking on a movie recommendation redirects the user to the correct detailed movie information page. Check that the movie ID is passed correctly and the detailed page displays all relevant information.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 4,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for showing movie details, providing explanations, and implementing click to view functionality.",
+        "updatedAt": "2025-12-09T06:44:41.893Z"
+      },
+      {
+        "id": "24",
+        "title": "Implement responsive design",
+        "description": "Implement a responsive design for the user interface to support different screen sizes and devices.",
+        "details": "1. Use CSS media queries to adjust the layout for different screen sizes.\n2. Ensure the UI is mobile-friendly.\n3. Test the UI on different devices and browsers.",
+        "testStrategy": "1. Verify the UI is responsive on different screen sizes and devices.\n2. Check the UI is mobile-friendly.",
+        "priority": "medium",
+        "dependencies": [
+          "23"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement CSS Media Queries",
+            "description": "Implement CSS media queries to adjust the layout for different screen sizes.",
+            "dependencies": [],
+            "details": "Write CSS code using media queries to target different screen sizes and adjust the layout accordingly. Test on various resolutions.",
+            "status": "pending",
+            "testStrategy": "Verify that the layout adapts correctly to different screen sizes using browser developer tools.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Ensure UI is Mobile-Friendly",
+            "description": "Ensure the user interface is mobile-friendly and provides a good user experience on mobile devices.",
+            "dependencies": [
+              1
+            ],
+            "details": "Optimize the UI for mobile devices by using appropriate font sizes, touch targets, and responsive images. Test on different mobile devices.",
+            "status": "pending",
+            "testStrategy": "Test the UI on various mobile devices and screen sizes to ensure a good user experience.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Test UI on Different Devices and Browsers",
+            "description": "Test the user interface on different devices and browsers to ensure compatibility and responsiveness.",
+            "dependencies": [
+              2
+            ],
+            "details": "Perform cross-browser and cross-device testing to ensure the UI works correctly on different platforms and browsers. Use tools like BrowserStack.",
+            "status": "pending",
+            "testStrategy": "Use BrowserStack or similar tools to test the UI on different devices and browsers. Document any issues found.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for using CSS media queries, ensuring the UI is mobile-friendly, and testing the UI on different devices.",
+        "updatedAt": "2025-12-09T06:45:29.296Z"
+      },
+      {
+        "id": "25",
+        "title": "Add Telugu language support",
+        "description": "Add support for the Telugu language in the user interface.",
+        "details": "1. Use Unicode characters for Telugu script.\n2. Ensure the font supports Telugu characters.\n3. Test the UI with Telugu text.",
+        "testStrategy": "1. Verify the Telugu language is displayed correctly in the UI.\n2. Check the font supports Telugu characters.",
+        "priority": "medium",
+        "dependencies": [
+          "24"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Unicode support for Telugu",
+            "description": "Implement Unicode character support for the Telugu language in the UI to ensure proper rendering.",
+            "dependencies": [],
+            "details": "Research and implement the correct Unicode encoding for Telugu characters. Verify that the UI components are configured to display Unicode characters correctly. Test with various Telugu characters.",
+            "status": "pending",
+            "testStrategy": "Verify that Telugu characters are displayed correctly in all UI elements using Unicode encoding.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Ensure font supports Telugu characters",
+            "description": "Select and implement a font that supports Telugu characters for proper display in the UI.",
+            "dependencies": [],
+            "details": "Identify and integrate a font that includes Telugu glyphs. Configure the UI to use the selected font. Verify that all Telugu characters are rendered correctly with the chosen font.",
+            "status": "pending",
+            "testStrategy": "Check if the selected font supports all required Telugu characters and renders them correctly in the UI.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Test UI with Telugu text",
+            "description": "Thoroughly test the UI with Telugu text to ensure proper display and functionality.",
+            "dependencies": [
+              1,
+              2
+            ],
+            "details": "Input Telugu text into various UI elements (labels, text fields, buttons). Verify that the text is displayed correctly and that the UI remains functional. Test with different font sizes and styles.",
+            "status": "pending",
+            "testStrategy": "Manually test the UI with various Telugu text inputs to ensure correct rendering and functionality across different UI components.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 4,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for using Unicode characters, ensuring the font supports Telugu characters, and testing the UI with Telugu text.",
+        "updatedAt": "2025-12-09T06:45:55.063Z"
+      },
+      {
+        "id": "26",
+        "title": "Conduct unit testing, integration testing, and end-to-end testing",
+        "description": "Perform thorough testing of the system to ensure quality and reliability.",
+        "details": "1. Write unit tests for critical components.\n2. Implement integration tests to verify the interaction between components.\n3. Conduct end-to-end testing to validate the entire workflow.",
+        "testStrategy": "1. Verify the unit tests cover >80% of the code.\n2. Check the integration tests and end-to-end tests pass successfully.",
+        "priority": "high",
+        "dependencies": [
+          "21",
+          "25"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write Unit Tests",
+            "description": "Develop comprehensive unit tests for all critical components to ensure code quality and reliability.",
+            "dependencies": [],
+            "details": "Identify critical components, write test cases covering various scenarios, and achieve >80% code coverage. Use a testing framework like pytest.",
+            "status": "pending",
+            "testStrategy": "Verify unit tests cover >80% of the code and all tests pass successfully.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Implement Integration Tests",
+            "description": "Implement integration tests to verify the interaction and data flow between different components.",
+            "dependencies": [
+              1
+            ],
+            "details": "Define integration points, create test cases to simulate component interactions, and validate data consistency. Use mocking where necessary.",
+            "status": "pending",
+            "testStrategy": "Check the integration tests pass successfully and verify data consistency between components.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Conduct End-to-End Tests",
+            "description": "Conduct end-to-end tests to validate the entire workflow from user input to final output.",
+            "dependencies": [
+              2
+            ],
+            "details": "Simulate user workflows, create test data, and validate the entire system functionality. Use tools like Selenium or Cypress for browser automation.",
+            "status": "pending",
+            "testStrategy": "Check the end-to-end tests pass successfully and verify the entire workflow functions as expected.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 7,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for writing unit tests, implementing integration tests, and conducting end-to-end testing.",
+        "updatedAt": "2025-12-09T06:54:47.555Z"
+      },
+      {
+        "id": "27",
+        "title": "Optimize API performance and database queries",
+        "description": "Optimize the API performance and database queries to improve response time and scalability.",
+        "details": "1. Use connection pooling for concurrent database operations.\n2. Optimize database queries with indexes.\n3. Implement caching for frequently searched movies.\n4. Profile the API and identify performance bottlenecks.",
+        "testStrategy": "1. Verify the API response time is within the target range (5-10 seconds for cached results, 30-60 seconds for new searches).\n2. Check the database queries are optimized.",
+        "priority": "medium",
+        "dependencies": [
+          "26"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Implement Connection Pooling",
+            "description": "Implement connection pooling to efficiently manage database connections for concurrent operations.",
+            "dependencies": [],
+            "details": "Configure a connection pool with an appropriate size based on the expected concurrent database operations. Test the connection pool to ensure connections are properly managed and released.",
+            "status": "done",
+            "testStrategy": "Verify that the connection pool is properly configured and that connections are being reused efficiently. Monitor database connection usage to ensure that the pool is not being exhausted.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T07:01:56.939Z"
+          },
+          {
+            "id": 2,
+            "title": "Optimize Database Queries with Indexes",
+            "description": "Optimize database queries by adding indexes to frequently queried columns.",
+            "dependencies": [],
+            "details": "Analyze slow queries and identify columns that would benefit from indexing. Create indexes on those columns and re-test the queries to ensure performance improvements. Use EXPLAIN to analyze query plans.",
+            "status": "done",
+            "testStrategy": "Use EXPLAIN to analyze query plans before and after adding indexes. Verify that the queries are using the indexes and that the query execution time has decreased.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T07:01:58.556Z"
+          },
+          {
+            "id": 3,
+            "title": "Implement Caching for Frequently Searched Movies",
+            "description": "Implement a caching mechanism to store and retrieve frequently searched movie data.",
+            "dependencies": [],
+            "details": "Choose a caching solution (e.g., Redis, Memcached) and implement caching for movie data. Set an appropriate cache expiration time. Implement cache invalidation strategies.",
+            "status": "done",
+            "testStrategy": "Verify that frequently searched movie data is being retrieved from the cache. Measure the response time for cached and uncached requests. Ensure cache invalidation is working correctly.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T07:04:01.103Z"
+          },
+          {
+            "id": 4,
+            "title": "Profile API and Identify Performance Bottlenecks",
+            "description": "Profile the API to identify performance bottlenecks and areas for optimization.",
+            "dependencies": [],
+            "details": "Use a profiling tool to analyze the API's performance. Identify slow endpoints and functions. Investigate the root causes of the bottlenecks and propose solutions.",
+            "status": "done",
+            "testStrategy": "Use a profiling tool to measure the execution time of different parts of the API. Identify the slowest parts of the code and focus on optimizing those areas.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T07:05:14.019Z"
+          }
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for using connection pooling, optimizing database queries, implementing caching, and profiling the API.",
+        "updatedAt": "2025-12-09T07:05:14.019Z"
+      },
+      {
+        "id": "28",
+        "title": "Improve model accuracy with fine-tuning",
+        "description": "Fine-tune the Siamese Network to improve its accuracy.",
+        "details": "1. Collect user feedback on recommendations.\n2. Retrain model periodically with new data.\n3. A/B test model versions.",
+        "testStrategy": "1. Verify the model accuracy is improved after fine-tuning.\n2. Check the A/B testing results.",
+        "priority": "medium",
+        "dependencies": [
+          "27"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Collect user feedback on recommendations",
+            "description": "Gather user feedback on the current movie recommendations to identify areas for improvement.",
+            "dependencies": [],
+            "details": "Implement a feedback mechanism within the application to collect user ratings and comments on movie recommendations. Analyze the collected data to identify patterns and areas where the model's performance can be improved. This includes identifying biases or inaccuracies in the recommendations.",
+            "status": "done",
+            "testStrategy": "Analyze feedback data for trends and correlations with recommendation accuracy.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T07:07:52.168Z"
+          },
+          {
+            "id": 2,
+            "title": "Retrain model periodically with new data",
+            "description": "Retrain the Siamese Network model periodically using new movie reviews and user feedback data.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement a scheduled retraining process that automatically updates the model with the latest data. This involves preparing the new data, retraining the model, and evaluating its performance. The frequency of retraining should be determined based on the rate of data accumulation and the model's performance degradation over time. Monitor training metrics and validation performance to ensure the model is improving.",
+            "status": "deferred",
+            "testStrategy": "Compare model performance metrics before and after retraining.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T07:07:53.756Z"
+          },
+          {
+            "id": 3,
+            "title": "A/B test model versions",
+            "description": "Conduct A/B testing to compare the performance of different model versions.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement an A/B testing framework to compare the performance of the current model version against new or fine-tuned versions. Randomly assign users to different model versions and track key metrics such as click-through rates, user engagement, and feedback scores. Analyze the A/B testing results to determine which model version performs best and deploy the winning version to production. Ensure statistical significance in A/B testing results.",
+            "status": "deferred",
+            "testStrategy": "Compare key metrics (CTR, engagement, feedback) between model versions.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T07:07:53.765Z"
+          }
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for collecting user feedback, retraining the model, and A/B testing model versions.",
+        "updatedAt": "2025-12-09T07:08:53.267Z"
+      },
+      {
+        "id": "29",
+        "title": "Load testing for scalability",
+        "description": "Perform load testing to ensure the system can handle a large number of concurrent users.",
+        "details": "1. Simulate 100+ concurrent users.\n2. Monitor the system performance and identify bottlenecks.\n3. Optimize the system to handle the load.",
+        "testStrategy": "1. Verify the system can handle 100+ concurrent users without performance degradation.\n2. Check the system performance metrics.",
+        "priority": "medium",
+        "dependencies": [
+          "27"
+        ],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Simulate Concurrent Users",
+            "description": "Simulate 100+ concurrent users to generate load on the system.",
+            "dependencies": [],
+            "details": "Use a load testing tool like JMeter or Locust to simulate concurrent users accessing the system. Configure the tool to simulate realistic user behavior.",
+            "status": "done",
+            "testStrategy": "Verify that the load testing tool is correctly simulating the specified number of concurrent users and generating realistic traffic patterns.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T07:10:57.483Z"
+          },
+          {
+            "id": 2,
+            "title": "Monitor System Performance",
+            "description": "Monitor system performance metrics during the load test to identify bottlenecks.",
+            "dependencies": [
+              1
+            ],
+            "details": "Use monitoring tools like Prometheus, Grafana, or New Relic to track CPU usage, memory usage, network latency, and database query times. Analyze the data to identify performance bottlenecks.",
+            "status": "done",
+            "testStrategy": "Verify that the monitoring tools are correctly collecting and displaying system performance metrics. Check for any anomalies or unexpected behavior during the load test.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T07:10:57.494Z"
+          },
+          {
+            "id": 3,
+            "title": "Optimize System Performance",
+            "description": "Optimize the system based on the identified bottlenecks to improve performance.",
+            "dependencies": [
+              2
+            ],
+            "details": "Implement optimizations such as caching, database query optimization, code refactoring, or infrastructure scaling to address the identified bottlenecks. Retest the system after each optimization to verify the improvements.",
+            "status": "done",
+            "testStrategy": "Verify that the implemented optimizations have improved system performance. Check that the system can handle the specified load without performance degradation.",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-09T07:10:57.511Z"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for simulating concurrent users, monitoring system performance, and optimizing the system.",
+        "updatedAt": "2025-12-09T07:10:57.511Z"
+      },
+      {
+        "id": "30",
+        "title": "Deploy backend on cloud server (AWS, GCP, or Azure)",
+        "description": "Deploy the FastAPI backend on a cloud server.",
+        "details": "1. Choose a cloud provider (AWS, GCP, or Azure).\n2. Set up a virtual machine or container instance.\n3. Deploy the FastAPI backend to the cloud server.\n4. Configure the database connection.",
+        "testStrategy": "1. Verify the backend is deployed successfully on the cloud server.\n2. Check the database connection is configured correctly.",
+        "priority": "high",
+        "dependencies": [
+          "29"
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Choose a Cloud Provider",
+            "description": "Select a suitable cloud provider (AWS, GCP, or Azure) based on cost, features, and existing infrastructure.",
+            "dependencies": [],
+            "details": "Research and compare AWS, GCP, and Azure. Consider pricing, services offered, and integration with existing tools. Document the decision-making process and justification.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Set Up Virtual Machine/Container Instance",
+            "description": "Provision a virtual machine or container instance on the chosen cloud provider.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create a VM or container instance using the cloud provider's console or CLI. Configure the instance with necessary resources (CPU, memory, storage). Ensure the instance is accessible via SSH or other remote access methods.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Deploy FastAPI Backend",
+            "description": "Deploy the FastAPI backend application to the provisioned cloud server.",
+            "dependencies": [
+              2
+            ],
+            "details": "Transfer the FastAPI application code to the cloud server. Install necessary dependencies (Python, FastAPI, uvicorn). Configure a process manager (e.g., systemd, supervisord) to run the application.",
+            "status": "pending",
+            "testStrategy": "Verify the backend is accessible via HTTP/HTTPS and responds to API requests.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "Configure Database Connection",
+            "description": "Configure the FastAPI backend to connect to the database.",
+            "dependencies": [
+              3
+            ],
+            "details": "Set up the database connection string in the FastAPI application configuration. Ensure the database is accessible from the cloud server. Test the database connection by performing CRUD operations.",
+            "status": "pending",
+            "testStrategy": "Verify the backend can connect to the database and perform CRUD operations successfully.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 6,
+        "recommendedSubtasks": 4,
+        "expansionPrompt": "Break down the task into subtasks for choosing a cloud provider, setting up a virtual machine, deploying the backend, and configuring the database connection."
+      },
+      {
+        "id": "31",
+        "title": "Deploy frontend with CDN",
+        "description": "Deploy the frontend with a CDN for global reach.",
+        "details": "1. Choose a CDN provider (e.g., Cloudflare, AWS CloudFront).\n2. Configure the CDN to serve the frontend files.\n3. Test the frontend from different locations.",
+        "testStrategy": "1. Verify the frontend is deployed successfully with the CDN.\n2. Check the frontend is accessible from different locations.",
+        "priority": "high",
+        "dependencies": [
+          "30"
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Choose a CDN Provider",
+            "description": "Research and select a suitable CDN provider based on cost, performance, and features. Consider options like Cloudflare, AWS CloudFront, or Akamai.",
+            "dependencies": [],
+            "details": "Evaluate CDN providers based on pricing, global coverage, ease of integration, and support for required features. Document the chosen provider and the rationale behind the selection.",
+            "status": "pending",
+            "testStrategy": null,
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Configure CDN for Frontend",
+            "description": "Configure the chosen CDN to serve the frontend files. This includes setting up caching rules, origin settings, and any necessary security configurations.",
+            "dependencies": [
+              1
+            ],
+            "details": "Configure the CDN to point to the frontend's origin server or storage location. Set up appropriate caching rules to optimize performance and minimize origin server load. Configure SSL/TLS for secure delivery.",
+            "status": "pending",
+            "testStrategy": "Verify that the CDN is correctly configured by checking the response headers for cache hits and misses. Ensure that SSL/TLS is properly configured.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Test Frontend from Different Locations",
+            "description": "Test the deployed frontend from various geographic locations to ensure optimal performance and availability.",
+            "dependencies": [
+              2
+            ],
+            "details": "Use online tools or VPNs to simulate access from different locations. Measure page load times and verify that all assets are loading correctly. Check for any location-specific issues.",
+            "status": "pending",
+            "testStrategy": "Use tools like WebPageTest or Pingdom to measure page load times from different locations. Verify that the frontend is accessible and functional from all tested locations.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 5,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for choosing a CDN provider, configuring the CDN, and testing the frontend from different locations."
+      },
+      {
+        "id": "32",
+        "title": "Write user documentation and API documentation",
+        "description": "Create user documentation and API documentation for the system.",
+        "details": "1. Write a user manual explaining how to use the system.\n2. Create API documentation using Swagger or OpenAPI.\n3. Document all functions and classes.",
+        "testStrategy": "1. Verify the user documentation is clear and comprehensive.\n2. Check the API documentation is accurate and up-to-date.",
+        "priority": "low",
+        "dependencies": [
+          "31"
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Write User Manual",
+            "description": "Create a comprehensive user manual explaining how to use the system effectively, including step-by-step instructions and examples.",
+            "dependencies": [],
+            "details": "1. Define target audience. 2. Outline manual structure. 3. Write content for each section. 4. Include screenshots and examples. 5. Review and edit for clarity.",
+            "status": "pending",
+            "testStrategy": "Verify the user manual is clear, comprehensive, and easy to understand by target users.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Create API Documentation",
+            "description": "Generate API documentation using Swagger or OpenAPI to document all available API endpoints, request/response formats, and authentication methods.",
+            "dependencies": [],
+            "details": "1. Choose Swagger or OpenAPI. 2. Define API endpoints. 3. Document request/response formats. 4. Document authentication methods. 5. Generate documentation using chosen tool.",
+            "status": "pending",
+            "testStrategy": "Check the API documentation is accurate, up-to-date, and covers all available API endpoints.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Document Functions and Classes",
+            "description": "Document all functions and classes in the system, including descriptions, parameters, return values, and usage examples.",
+            "dependencies": [],
+            "details": "1. Identify all functions and classes. 2. Write descriptions for each. 3. Document parameters and return values. 4. Provide usage examples. 5. Review and edit for completeness.",
+            "status": "pending",
+            "testStrategy": "Verify that all functions and classes are documented with clear descriptions, parameters, return values, and usage examples.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 3,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for writing a user manual, creating API documentation, and documenting all functions and classes."
+      },
+      {
+        "id": "33",
+        "title": "Prepare project presentation",
+        "description": "Prepare a project presentation to showcase the system.",
+        "details": "1. Create a project demo video.\n2. Prepare final presentation slides.\n3. Write a research paper or technical report.",
+        "testStrategy": "1. Verify the project presentation is clear and informative.\n2. Check the demo video showcases the system effectively.",
+        "priority": "low",
+        "dependencies": [
+          "32"
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create project demo video",
+            "description": "Record a demo video showcasing the system's features and functionality.",
+            "dependencies": [],
+            "details": "Plan the video content, record the demo, edit the video, and add voiceover or text annotations. Ensure the video is clear and concise.",
+            "status": "pending",
+            "testStrategy": "Verify the video accurately demonstrates the system's capabilities and is easy to understand.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "Prepare presentation slides",
+            "description": "Design and create the final presentation slides for the project showcase.",
+            "dependencies": [],
+            "details": "Outline the presentation structure, create visually appealing slides with key information, and rehearse the presentation delivery. Include relevant charts and graphs.",
+            "status": "pending",
+            "testStrategy": "Check the slides for clarity, accuracy, and visual appeal. Ensure the presentation flows logically.",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "Write research paper/technical report",
+            "description": "Compose a research paper or technical report detailing the project's methodology and results.",
+            "dependencies": [],
+            "details": "Outline the paper/report structure, conduct research, write the content, and proofread for errors. Include relevant citations and references.",
+            "status": "pending",
+            "testStrategy": "Verify the paper/report is well-written, technically accurate, and properly formatted.",
+            "parentId": "undefined"
+          }
+        ],
+        "complexity": 3,
+        "recommendedSubtasks": 3,
+        "expansionPrompt": "Break down the task into subtasks for creating a demo video, preparing presentation slides, and writing a research paper."
+      }
+    ],
+    "metadata": {
+      "version": "1.0.0",
+      "lastModified": "2025-12-09T07:10:57.514Z",
+      "taskCount": 33,
+      "completedCount": 29,
+      "tags": [
+        "master"
+      ]
+    }
+  }
+}

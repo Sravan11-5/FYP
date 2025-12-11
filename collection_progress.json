@@ -1,0 +1,95 @@
+{
+  "movies_collected": [
+    {
+      "tmdb_id": 281960,
+      "title": "Killer",
+      "genre": "Action",
+      "review_count": 5
+    },
+    {
+      "tmdb_id": 1068452,
+      "title": "Hi Nanna",
+      "genre": "Drama",
+      "review_count": 1
+    },
+    {
+      "tmdb_id": 279326,
+      "title": "Hero",
+      "genre": "Action",
+      "review_count": 10
+    },
+    {
+      "tmdb_id": 592898,
+      "title": "Jersey",
+      "genre": "Drama",
+      "review_count": 3
+    },
+    {
+      "tmdb_id": 1196348,
+      "title": "The Girlfriend",
+      "genre": "Drama",
+      "review_count": 10
+    },
+    {
+      "tmdb_id": 361036,
+      "title": "Anveshana",
+      "genre": "Thriller",
+      "review_count": 1
+    },
+    {
+      "tmdb_id": 278423,
+      "title": "Abhilasha",
+      "genre": "Thriller",
+      "review_count": 2
+    }
+  ],
+  "tweets_used": 41,
+  "failed_movies": [
+    {
+      "tmdb_id": 1111343,
+      "title": "Pratighatana",
+      "genre": "Action"
+    },
+    {
+      "tmdb_id": 77031,
+      "title": "Jagadeka Veerudu Athiloka Sundari",
+      "genre": "Action"
+    },
+    {
+      "tmdb_id": 1283166,
+      "title": "Prasanna Vadanam",
+      "genre": "Action"
+    },
+    {
+      "tmdb_id": 279134,
+      "title": "Yamudiki Mogudu",
+      "genre": "Action"
+    },
+    {
+      "tmdb_id": 606224,
+      "title": "Rakshasudu",
+      "genre": "Action"
+    },
+    {
+      "tmdb_id": 631192,
+      "title": "Thodu",
+      "genre": "Drama"
+    },
+    {
+      "tmdb_id": 898842,
+      "title": "Ram Asur",
+      "genre": "Thriller"
+    },
+    {
+      "tmdb_id": 476850,
+      "title": "Kathalo Rajakumari",
+      "genre": "Action"
+    },
+    {
+      "tmdb_id": 436399,
+      "title": "Sher",
+      "genre": "Action"
+    }
+  ],
+  "last_update": "2025-12-10T16:42:16.258430"
+}

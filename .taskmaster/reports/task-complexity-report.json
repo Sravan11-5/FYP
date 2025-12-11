@@ -1,0 +1,277 @@
+{
+	"meta": {
+		"generatedAt": "2025-12-05T06:08:17.600Z",
+		"tasksAnalyzed": 33,
+		"totalTasks": 33,
+		"analysisCount": 33,
+		"thresholdScore": 5,
+		"projectName": "Taskmaster",
+		"usedResearch": false
+	},
+	"complexityAnalysis": [
+		{
+			"taskId": 1,
+			"taskTitle": "Set up FastAPI backend structure",
+			"complexityScore": 4,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down the task into subtasks for creating the FastAPI project, defining the project structure, configuring settings, implementing exception handling, and setting up logging.",
+			"reasoning": "This task involves multiple steps, including project setup, configuration, and basic implementation. It requires familiarity with FastAPI and project structuring. The complexity is moderate due to the number of steps and the need for proper configuration."
+		},
+		{
+			"taskId": 2,
+			"taskTitle": "Implement database schema and models",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down the task into subtasks for choosing the database, defining models, creating tables/collections, implementing relationships, and adding indexes.",
+			"reasoning": "This task involves database design and implementation, which can be complex depending on the chosen database and the relationships between entities. It requires knowledge of database modeling and ORM/ODM libraries. The complexity is moderate to high due to the need for careful design and implementation."
+		},
+		{
+			"taskId": 3,
+			"taskTitle": "Create basic frontend UI (search page)",
+			"complexityScore": 3,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for creating the HTML structure, styling with CSS, implementing JavaScript functionality, and ensuring responsiveness.",
+			"reasoning": "This task involves basic frontend development using HTML, CSS, and JavaScript. It requires familiarity with web development principles and responsive design. The complexity is low to moderate as it's a relatively simple UI component."
+		},
+		{
+			"taskId": 4,
+			"taskTitle": "Integrate TMDB API and Twitter API",
+			"complexityScore": 5,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down the task into subtasks for installing libraries, creating API clients, fetching movie data from TMDB, searching Twitter for reviews, and storing API keys securely.",
+			"reasoning": "This task involves integrating with external APIs, which requires handling API keys, making requests, and parsing responses. It also involves secure storage of API keys. The complexity is moderate due to the need for API integration and security considerations."
+		},
+		{
+			"taskId": 5,
+			"taskTitle": "Implement basic API endpoints (search, health check)",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for defining the search endpoint, implementing the health check endpoint, using dependency injection, and implementing input validation.",
+			"reasoning": "This task involves implementing API endpoints using FastAPI, which requires handling requests, processing data, and returning responses. It also involves dependency injection and input validation. The complexity is moderate due to the need for API implementation and validation."
+		},
+		{
+			"taskId": 6,
+			"taskTitle": "Build data collection agents for TMDB and Twitter",
+			"complexityScore": 6,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down the task into subtasks for creating the TMDB data collector, implementing methods for fetching movie data, creating the Twitter data collector, implementing methods for fetching reviews, and handling API rate limits.",
+			"reasoning": "This task involves building data collection agents that interact with external APIs. It requires handling API rate limits, errors, and data parsing. The complexity is moderate to high due to the need for robust error handling and API interaction."
+		},
+		{
+			"taskId": 7,
+			"taskTitle": "Implement duplicate prevention logic",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for checking for existing movies, checking for existing reviews, implementing update functionality, and using database indexes.",
+			"reasoning": "This task involves implementing logic to prevent duplicate entries in the database. It requires querying the database and implementing update functionality. The complexity is moderate due to the need for database interaction and logic implementation."
+		},
+		{
+			"taskId": 8,
+			"taskTitle": "Create database storage functions",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for creating functions to insert movie metadata, creating functions to insert reviews, handling database connection and transaction management, and implementing error handling.",
+			"reasoning": "This task involves creating functions to store data in the database. It requires handling database connections, transactions, and error handling. The complexity is moderate due to the need for database interaction and error handling."
+		},
+		{
+			"taskId": 9,
+			"taskTitle": "Test data collection for multiple movies",
+			"complexityScore": 4,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for creating a list of movie names, fetching metadata and reviews for each movie, storing the data in the database, and monitoring the process for errors.",
+			"reasoning": "This task involves testing the data collection process for multiple movies. It requires running the data collection agents and monitoring for errors. The complexity is moderate due to the need for data collection and monitoring."
+		},
+		{
+			"taskId": 10,
+			"taskTitle": "Implement error handling and retries",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for implementing try-except blocks, implementing retry mechanisms, logging errors, and implementing a circuit breaker pattern.",
+			"reasoning": "This task involves implementing robust error handling and retry mechanisms. It requires handling exceptions, implementing retry logic, and logging errors. The complexity is moderate to high due to the need for robust error handling and retry logic."
+		},
+		{
+			"taskId": 11,
+			"taskTitle": "Collect and prepare Telugu movie reviews dataset",
+			"complexityScore": 7,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for scraping reviews, cleaning the data, tokenizing the reviews, and splitting the dataset.",
+			"reasoning": "This task involves collecting and preparing a dataset of Telugu movie reviews, which can be challenging due to data availability and language-specific preprocessing requirements. It requires web scraping, data cleaning, and tokenization. The complexity is moderate to high due to the need for data collection and preprocessing."
+		},
+		{
+			"taskId": 12,
+			"taskTitle": "Design and implement Siamese Network architecture",
+			"complexityScore": 8,
+			"recommendedSubtasks": 5,
+			"expansionPrompt": "Break down the task into subtasks for choosing a pre-trained embedding model, implementing the Siamese branches, adding a classification layer, adding a multi-label classification layer, and defining the loss function and optimizer.",
+			"reasoning": "This task involves designing and implementing a Siamese Network architecture, which requires knowledge of deep learning principles and network architectures. It also involves choosing a pre-trained embedding model and defining the loss function and optimizer. The complexity is high due to the need for deep learning expertise."
+		},
+		{
+			"taskId": 13,
+			"taskTitle": "Train model on labeled data",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for loading the training dataset, training the Siamese Network, monitoring the training process, and saving the model checkpoints.",
+			"reasoning": "This task involves training the Siamese Network on the prepared dataset. It requires monitoring the training process and saving the model checkpoints. The complexity is moderate to high due to the need for deep learning training and monitoring."
+		},
+		{
+			"taskId": 14,
+			"taskTitle": "Evaluate model performance",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for loading the test dataset, evaluating the model, calculating performance metrics, and analyzing the results.",
+			"reasoning": "This task involves evaluating the performance of the trained Siamese Network. It requires calculating performance metrics and analyzing the results. The complexity is moderate due to the need for model evaluation and analysis."
+		},
+		{
+			"taskId": 15,
+			"taskTitle": "Integrate model into backend for inference",
+			"complexityScore": 7,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for loading the trained model, creating a function to process reviews, implementing batch processing, and using GPU if available.",
+			"reasoning": "This task involves integrating the trained Siamese Network into the FastAPI backend. It requires loading the model, processing reviews, and implementing batch processing. The complexity is moderate to high due to the need for model integration and performance optimization."
+		},
+		{
+			"taskId": 16,
+			"taskTitle": "Develop context-aware recommendation algorithm",
+			"complexityScore": 7,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for analyzing sentiment scores, comparing with similar movies, weighting recommendations, and ranking movies.",
+			"reasoning": "This task involves developing a context-aware recommendation algorithm. It requires analyzing sentiment scores, comparing with similar movies, and weighting recommendations. The complexity is moderate to high due to the need for algorithm design and implementation."
+		},
+		{
+			"taskId": 17,
+			"taskTitle": "Implement ranking and scoring logic",
+			"complexityScore": 6,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for considering multiple factors, applying a weighted scoring algorithm, and returning the top recommended movies.",
+			"reasoning": "This task involves implementing the logic for ranking and scoring movies based on multiple factors. It requires applying a weighted scoring algorithm and returning the top recommended movies. The complexity is moderate due to the need for algorithm implementation."
+		},
+		{
+			"taskId": 18,
+			"taskTitle": "Generate explanations for recommendations",
+			"complexityScore": 5,
+			"recommendedSubtasks": 2,
+			"expansionPrompt": "Break down the task into subtasks for generating explanations based on sentiment, genre, and rating, and displaying sentiment distribution.",
+			"reasoning": "This task involves generating explanations for recommendations. It requires generating explanations based on sentiment, genre, and rating. The complexity is moderate due to the need for explanation generation."
+		},
+		{
+			"taskId": 19,
+			"taskTitle": "Build agentic AI orchestrator",
+			"complexityScore": 8,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for choosing an agent framework, defining agent roles, and implementing tool use.",
+			"reasoning": "This task involves building an agentic AI orchestrator, which requires knowledge of agent frameworks and tool use. The complexity is high due to the need for agent framework implementation."
+		},
+		{
+			"taskId": 20,
+			"taskTitle": "Automate end-to-end workflow",
+			"complexityScore": 7,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for triggering data collection, coordinating API calls, managing database operations, and handling errors.",
+			"reasoning": "This task involves automating the entire recommendation workflow. It requires triggering data collection, coordinating API calls, and managing database operations. The complexity is moderate to high due to the need for workflow automation."
+		},
+		{
+			"taskId": 21,
+			"taskTitle": "Implement autonomous decision-making",
+			"complexityScore": 8,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for deciding whether to fetch new data, prioritizing tasks, and handling failures.",
+			"reasoning": "This task involves implementing autonomous decision-making within the agentic AI workflow. It requires the agent to make decisions based on data availability and task priority. The complexity is high due to the need for autonomous decision-making."
+		},
+		{
+			"taskId": 22,
+			"taskTitle": "Complete UI for search and results pages",
+			"complexityScore": 5,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for implementing the search page, implementing the results page, using HTML, CSS, and JavaScript, and ensuring the UI is responsive.",
+			"reasoning": "This task involves completing the user interface for the search and results pages. It requires using HTML, CSS, and JavaScript. The complexity is moderate due to the need for UI implementation."
+		},
+		{
+			"taskId": 23,
+			"taskTitle": "Display recommendations with movie details",
+			"complexityScore": 4,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for showing movie details, providing explanations, and implementing click to view functionality.",
+			"reasoning": "This task involves displaying recommendations with movie details. It requires showing movie details and providing explanations. The complexity is moderate due to the need for UI implementation."
+		},
+		{
+			"taskId": 24,
+			"taskTitle": "Implement responsive design",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for using CSS media queries, ensuring the UI is mobile-friendly, and testing the UI on different devices.",
+			"reasoning": "This task involves implementing a responsive design for the user interface. It requires using CSS media queries and ensuring the UI is mobile-friendly. The complexity is moderate due to the need for responsive design implementation."
+		},
+		{
+			"taskId": 25,
+			"taskTitle": "Add Telugu language support",
+			"complexityScore": 4,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for using Unicode characters, ensuring the font supports Telugu characters, and testing the UI with Telugu text.",
+			"reasoning": "This task involves adding support for the Telugu language in the user interface. It requires using Unicode characters and ensuring the font supports Telugu characters. The complexity is moderate due to the need for language support implementation."
+		},
+		{
+			"taskId": 26,
+			"taskTitle": "Conduct unit testing, integration testing, and end-to-end testing",
+			"complexityScore": 7,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for writing unit tests, implementing integration tests, and conducting end-to-end testing.",
+			"reasoning": "This task involves conducting thorough testing of the system. It requires writing unit tests, implementing integration tests, and conducting end-to-end testing. The complexity is moderate to high due to the need for comprehensive testing."
+		},
+		{
+			"taskId": 27,
+			"taskTitle": "Optimize API performance and database queries",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for using connection pooling, optimizing database queries, implementing caching, and profiling the API.",
+			"reasoning": "This task involves optimizing the API performance and database queries. It requires using connection pooling, optimizing database queries, and implementing caching. The complexity is moderate to high due to the need for performance optimization."
+		},
+		{
+			"taskId": 28,
+			"taskTitle": "Improve model accuracy with fine-tuning",
+			"complexityScore": 6,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for collecting user feedback, retraining the model, and A/B testing model versions.",
+			"reasoning": "This task involves fine-tuning the Siamese Network to improve its accuracy. It requires collecting user feedback and retraining the model. The complexity is moderate to high due to the need for model fine-tuning."
+		},
+		{
+			"taskId": 29,
+			"taskTitle": "Load testing for scalability",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for simulating concurrent users, monitoring system performance, and optimizing the system.",
+			"reasoning": "This task involves performing load testing to ensure the system can handle a large number of concurrent users. It requires simulating concurrent users and monitoring system performance. The complexity is moderate due to the need for load testing."
+		},
+		{
+			"taskId": 30,
+			"taskTitle": "Deploy backend on cloud server (AWS, GCP, or Azure)",
+			"complexityScore": 6,
+			"recommendedSubtasks": 4,
+			"expansionPrompt": "Break down the task into subtasks for choosing a cloud provider, setting up a virtual machine, deploying the backend, and configuring the database connection.",
+			"reasoning": "This task involves deploying the FastAPI backend on a cloud server. It requires choosing a cloud provider and setting up a virtual machine. The complexity is moderate to high due to the need for cloud deployment."
+		},
+		{
+			"taskId": 31,
+			"taskTitle": "Deploy frontend with CDN",
+			"complexityScore": 5,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for choosing a CDN provider, configuring the CDN, and testing the frontend from different locations.",
+			"reasoning": "This task involves deploying the frontend with a CDN. It requires choosing a CDN provider and configuring the CDN. The complexity is moderate due to the need for CDN deployment."
+		},
+		{
+			"taskId": 32,
+			"taskTitle": "Write user documentation and API documentation",
+			"complexityScore": 3,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for writing a user manual, creating API documentation, and documenting all functions and classes.",
+			"reasoning": "This task involves writing user documentation and API documentation. It requires writing a user manual and creating API documentation. The complexity is low to moderate due to the need for documentation writing."
+		},
+		{
+			"taskId": 33,
+			"taskTitle": "Prepare project presentation",
+			"complexityScore": 3,
+			"recommendedSubtasks": 3,
+			"expansionPrompt": "Break down the task into subtasks for creating a demo video, preparing presentation slides, and writing a research paper.",
+			"reasoning": "This task involves preparing a project presentation. It requires creating a demo video and preparing presentation slides. The complexity is low to moderate due to the need for presentation preparation."
+		}
+	]
+}

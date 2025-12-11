@@ -1,0 +1,19 @@
+{
+  "config": {
+    "vocab_size": 5000,
+    "embedding_dim": 128,
+    "hidden_dim": 256,
+    "num_layers": 2,
+    "dropout": 0.3,
+    "batch_size": 16,
+    "learning_rate": 0.001,
+    "num_epochs": 20,
+    "patience": 5,
+    "max_length": 50,
+    "device": "cpu"
+  },
+  "best_val_loss": 0.00025026261476644626,
+  "best_val_acc": 100.0,
+  "total_epochs": 20,
+  "vocab_size": 180
+}

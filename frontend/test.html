@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Telugu Movie Recommendation System - Test Page">
+    <title>Test Page - Telugu Movie Recommendations</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Google Fonts for Telugu Support -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>🎬 తెలుగు సినిమా సిఫార్సులు - Test Page</h1>
+                <p class="subtitle">Testing Frontend Components</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h2 class="hero-title">Frontend Test Page</h2>
+                <p class="hero-description">Testing All UI Components</p>
+            </section>
+
+            <!-- Test Buttons -->
+            <section style="text-align: center; margin: 2rem 0;">
+                <button onclick="showSampleRecommendations()" style="padding: 1rem 2rem; background: #1e3a8a; color: white; border: none; border-radius: 0.5rem; font-size: 1rem; cursor: pointer; margin: 0.5rem;">
+                    Show Sample Recommendations
+                </button>
+                <button onclick="showError('This is a test error message')" style="padding: 1rem 2rem; background: #dc2626; color: white; border: none; border-radius: 0.5rem; font-size: 1rem; cursor: pointer; margin: 0.5rem;">
+                    Show Error
+                </button>
+                <button onclick="hideAll()" style="padding: 1rem 2rem; background: #64748b; color: white; border: none; border-radius: 0.5rem; font-size: 1rem; cursor: pointer; margin: 0.5rem;">
+                    Clear All
+                </button>
+            </section>
+
+            <!-- Search Section -->
+            <section class="search-section">
+                <form id="searchForm" class="search-form" role="search">
+                    <div class="search-container">
+                        <div class="search-input-wrapper">
+                            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+                            <input 
+                                type="text" 
+                                id="searchInput" 
+                                class="search-input" 
+                                placeholder="సినిమా పేరు టైప్ చేయండి... (Enter movie name in Telugu or English)"
+                                required
+                                autocomplete="off"
+                                aria-label="Search for Telugu movies"
+                            >
+                        </div>
+                        <button type="submit" class="search-button" id="searchButton">
+                            <span class="button-text">వెతకండి</span>
+                            <span class="button-text-en">Search</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Loading Indicator -->
+                <div id="loadingIndicator" class="loading-indicator hidden" role="status" aria-live="polite">
+                    <div class="spinner"></div>
+                    <p class="loading-text">సినిమాలను వెతుకుతున్నాము... Searching for movies...</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="error-message hidden" role="alert">
+                    <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                    </svg>
+                    <p id="errorText"></p>
+                </div>
+            </section>
+
+            <!-- Recommendations Section -->
+            <section id="recommendationsSection" class="recommendations-section hidden">
+                <h3 class="recommendations-title">సిఫార్సు చేయబడిన సినిమాలు | Sample Recommendations</h3>
+                <div id="recommendationsContainer" class="recommendations-container">
+                    <!-- Recommendations will be dynamically inserted here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Telugu Movie Recommendation System | Powered by AI & Deep Learning</p>
+            <p class="footer-tech">Built with FastAPI, MongoDB, PyTorch & Siamese Networks</p>
+        </div>
+    </footer>
+
+    <!-- Movie Detail Modal -->
+    <div id="movieModal" class="modal hidden">
+        <div class="modal-overlay" onclick="closeMovieModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeMovieModal()" aria-label="Close modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Test JavaScript -->
+    <script>
+        const elements = {
+            searchForm: document.getElementById('searchForm'),
+            searchInput: document.getElementById('searchInput'),
+            searchButton: document.getElementById('searchButton'),
+            loadingIndicator: document.getElementById('loadingIndicator'),
+            errorMessage: document.getElementById('errorMessage'),
+            errorText: document.getElementById('errorText'),
+            recommendationsSection: document.getElementById('recommendationsSection'),
+            recommendationsContainer: document.getElementById('recommendationsContainer')
+        };
+
+        // State to store recommendations
+        const state = {
+            recommendations: []
+        };
+
+        // Sample recommendations data
+        const sampleRecommendations = [
+            {
+                movie: {
+                    title: "RRR",
+                    original_title: "రౌద్రం రణం రుధిరం",
+                    poster_url: "https://via.placeholder.com/250x375?text=RRR",
+                    release_year: 2022,
+                    rating: 8.0,
+                    runtime: 187,
+                    genres: ["Action", "Drama", "Historical"],
+                    overview: "A fictional story about two legendary revolutionaries and their journey away from home before they started fighting for their country in 1920s.",
+                    cast: ["Ram Charan", "Jr NTR", "Alia Bhatt"]
+                },
+                confidence_score: 0.95,
+                explanation: {
+                    reason: "Highly rated action-drama with strong performances and spectacular visuals. Matches your preference for historical epics with modern filmmaking techniques.",
+                    sentiment: {
+                        score: 0.92,
+                        label: "positive"
+                    }
+                }
+            },
+            {
+                movie: {
+                    title: "Baahubali 2: The Conclusion",
+                    original_title: "బాహుబలి 2: ది కన్‌క్లూజన్",
+                    poster_url: "https://via.placeholder.com/250x375?text=Baahubali+2",
+                    release_year: 2017,
+                    rating: 8.2,
+                    runtime: 167,
+                    genres: ["Action", "Adventure", "Drama"],
+                    overview: "When Shiva, the son of Bahubali, learns about his heritage, he begins to look for answers. His story is juxtaposed with past events that unfolded in the Mahishmati Kingdom.",
+                    cast: ["Prabhas", "Rana Daggubati", "Anushka Shetty"]
+                },
+                confidence_score: 0.88,
+                explanation: {
+                    reason: "Epic conclusion to the Baahubali saga with stunning visuals and emotional depth. Perfect for fans of grand-scale storytelling and action sequences.",
+                    sentiment: {
+                        score: 0.89,
+                        label: "positive"
+                    }
+                }
+            },
+            {
+                movie: {
+                    title: "Pushpa: The Rise",
+                    original_title: "పుష్ప: ది రైజ్",
+                    poster_url: "https://via.placeholder.com/250x375?text=Pushpa",
+                    release_year: 2021,
+                    rating: 7.6,
+                    runtime: 179,
+                    genres: ["Action", "Crime", "Thriller"],
+                    overview: "Violence erupts between red sandalwood smugglers and the police charged with bringing down their organization in the Seshachalam forests of South India.",
+                    cast: ["Allu Arjun", "Rashmika Mandanna", "Fahadh Faasil"]
+                },
+                confidence_score: 0.82,
+                explanation: {
+                    reason: "Raw and intense action thriller with exceptional character development. Recommended for viewers who enjoy gritty crime dramas with powerful performances.",
+                    sentiment: {
+                        score: 0.85,
+                        label: "positive"
+                    }
+                }
+            }
+        ];
+
+        function showSampleRecommendations() {
+            hideError();
+            state.recommendations = sampleRecommendations;
+            const html = sampleRecommendations.map((rec, index) => renderRecommendationCard(rec, index)).join('');
+            elements.recommendationsContainer.innerHTML = html;
+            elements.recommendationsSection.classList.remove('hidden');
+            elements.recommendationsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function renderRecommendationCard(recommendation, index) {
+            const movie = recommendation.movie;
+            const explanation = recommendation.explanation || {};
+            const sentiment = explanation.sentiment || {};
+            
+            const sentimentScore = sentiment.score ? (sentiment.score * 100).toFixed(1) : 'N/A';
+            const sentimentLabel = sentiment.label || 'neutral';
+            const sentimentClass = sentimentLabel === 'positive' ? 'sentiment-positive' : 
+                                  sentimentLabel === 'negative' ? 'sentiment-negative' : 'sentiment-neutral';
+            
+            const confidence = recommendation.confidence_score ? 
+                              (recommendation.confidence_score * 100).toFixed(0) : 'N/A';
+            
+            return `
+                <div class="recommendation-card" onclick="openMovieModal(state.recommendations[${index}])" style="cursor: pointer;" title="Click to view details">
+                    <div class="recommendation-poster">
+                        <img 
+                            src="${movie.poster_url || 'https://via.placeholder.com/250x375?text=No+Poster'}" 
+                            alt="${movie.title}" 
+                            loading="lazy"
+                        >
+                        ${confidence !== 'N/A' ? `<div class="confidence-badge">${confidence}% Match</div>` : ''}
+                    </div>
+                    <div class="recommendation-content">
+                        <h4 class="recommendation-title">${movie.title} 🔍</h4>
+                        ${movie.original_title !== movie.title ? 
+                            `<p class="recommendation-original">${movie.original_title}</p>` : ''}
+                        
+                        <div class="recommendation-meta">
+                            ${movie.release_year ? `<span class="meta-year">📅 ${movie.release_year}</span>` : ''}
+                            ${movie.rating ? `<span class="meta-rating">⭐ ${movie.rating}/10</span>` : ''}
+                            ${movie.runtime ? `<span class="meta-runtime">⏱️ ${movie.runtime} min</span>` : ''}
+                        </div>
+                        
+                        ${movie.genres && movie.genres.length > 0 ? `
+                            <div class="recommendation-genres">
+                                ${movie.genres.slice(0, 4).map(genre => 
+                                    `<span class="genre-tag">${genre}</span>`
+                                ).join('')}
+                            </div>
+                        ` : ''}
+                        
+                        ${movie.overview ? `
+                            <p class="recommendation-overview">${movie.overview}</p>
+                        ` : ''}
+                        
+                        ${explanation.reason ? `
+                            <div class="recommendation-reason">
+                                <strong>🎯 Why recommended:</strong>
+                                <p>${explanation.reason}</p>
+                            </div>
+                        ` : ''}
+                        
+                        ${sentiment.score ? `
+                            <div class="recommendation-sentiment">
+                                <strong>📊 Public Sentiment:</strong>
+                                <div class="sentiment-bar">
+                                    <span class="${sentimentClass}">${sentimentLabel.toUpperCase()}</span>
+                                    <span class="sentiment-score">${sentimentScore}%</span>
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        ${movie.cast && movie.cast.length > 0 ? `
+                            <div class="recommendation-cast">
+                                <strong>🎭 Cast:</strong> ${movie.cast.slice(0, 3).join(', ')}
+                            </div>
+                        ` : ''}
+                        
+                        <div style="margin-top: 1rem; padding: 0.5rem; background: #f0f9ff; border-radius: 0.5rem; text-align: center; font-size: 0.875rem; color: #1e3a8a;">
+                            <strong>👆 Click to view full details in modal</strong>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openMovieModal(movieData) {
+            const modal = document.getElementById('movieModal');
+            const modalBody = document.getElementById('modalBody');
+            
+            const movie = movieData.movie;
+            const explanation = movieData.explanation || {};
+            const sentiment = explanation.sentiment || {};
+            const confidence = movieData.confidence_score ? 
+                              (movieData.confidence_score * 100).toFixed(0) : 'N/A';
+            
+            const modalHTML = `
+                <div class="modal-header">
+                    <img 
+                        src="${movie.poster_url || 'https://via.placeholder.com/300x450?text=No+Poster'}" 
+                        alt="${movie.title}" 
+                        class="modal-poster"
+                    >
+                    <div class="modal-info">
+                        <h2 class="modal-title">${movie.title}</h2>
+                        ${movie.original_title !== movie.title ? 
+                            `<p class="modal-original-title">${movie.original_title}</p>` : ''}
+                        
+                        <div class="modal-meta">
+                            ${movie.release_year ? `<span>📅 ${movie.release_year}</span>` : ''}
+                            ${movie.rating ? `<span>⭐ ${movie.rating}/10</span>` : ''}
+                            ${movie.runtime ? `<span>⏱️ ${movie.runtime} min</span>` : ''}
+                        </div>
+                        
+                        ${movie.genres && movie.genres.length > 0 ? `
+                            <div class="modal-genres">
+                                ${movie.genres.map(genre => 
+                                    `<span class="genre-tag">${genre}</span>`
+                                ).join('')}
+                            </div>
+                        ` : ''}
+                        
+                        ${confidence !== 'N/A' ? `
+                            <div style="margin-top: 1rem;">
+                                <div class="confidence-badge" style="position: static; display: inline-block;">
+                                    ${confidence}% Match
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+                
+                ${movie.overview ? `
+                    <div class="modal-section">
+                        <h3 class="modal-section-title">📖 Overview</h3>
+                        <p class="modal-overview">${movie.overview}</p>
+                    </div>
+                ` : ''}
+                
+                ${explanation.reason ? `
+                    <div class="modal-section">
+                        <div class="recommendation-reason">
+                            <strong>🎯 Why We Recommend This:</strong>
+                            <p>${explanation.reason}</p>
+                        </div>
+                    </div>
+                ` : ''}
+                
+                ${sentiment.score ? `
+                    <div class="modal-section">
+                        <div class="recommendation-sentiment">
+                            <strong>📊 Public Sentiment Analysis:</strong>
+                            <div class="sentiment-bar">
+                                <span class="sentiment-${sentiment.label}">${(sentiment.label || 'neutral').toUpperCase()}</span>
+                                <span class="sentiment-score">${(sentiment.score * 100).toFixed(1)}%</span>
+                            </div>
+                        </div>
+                    </div>
+                ` : ''}
+                
+                ${movie.cast && movie.cast.length > 0 ? `
+                    <div class="modal-section">
+                        <h3 class="modal-section-title">🎭 Cast</h3>
+                        <div class="modal-cast-grid">
+                            ${movie.cast.slice(0, 6).map(actor => 
+                                `<div class="modal-cast-item">${actor}</div>`
+                            ).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+                
+                <div class="modal-section">
+                    <h3 class="modal-section-title">📊 Statistics</h3>
+                    <div class="modal-stats">
+                        ${movie.rating ? `
+                            <div class="modal-stat-card">
+                                <div class="modal-stat-value">${movie.rating}/10</div>
+                                <div class="modal-stat-label">Rating</div>
+                            </div>
+                        ` : ''}
+                        ${confidence !== 'N/A' ? `
+                            <div class="modal-stat-card">
+                                <div class="modal-stat-value">${confidence}%</div>
+                                <div class="modal-stat-label">Match Score</div>
+                            </div>
+                        ` : ''}
+                        ${sentiment.score ? `
+                            <div class="modal-stat-card">
+                                <div class="modal-stat-value">${(sentiment.score * 100).toFixed(0)}%</div>
+                                <div class="modal-stat-label">Sentiment Score</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="modal-button modal-button-secondary" onclick="closeMovieModal()">
+                        Close
+                    </button>
+                    <button class="modal-button modal-button-primary" onclick="alert('This would open TMDB page')">
+                        View on TMDB
+                    </button>
+                </div>
+            `;
+            
+            modalBody.innerHTML = modalHTML;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMovieModal() {
+            const modal = document.getElementById('movieModal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function showError(message) {
+            elements.errorText.textContent = message;
+            elements.errorMessage.classList.remove('hidden');
+        }
+
+        function hideError() {
+            elements.errorMessage.classList.add('hidden');
+        }
+
+        function hideAll() {
+            hideError();
+            elements.recommendationsSection.classList.add('hidden');
+            elements.recommendationsContainer.innerHTML = '';
+        }
+
+        // Handle form submission
+        elements.searchForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const query = elements.searchInput.value.trim();
+            
+            if (query.length < 2) {
+                showError('దయచేసి కనీసం 2 అక్షరాలు ఎంటర్ చేయండి | Please enter at least 2 characters');
+                return;
+            }
+            
+            hideError();
+            elements.loadingIndicator.classList.remove('hidden');
+            elements.searchButton.disabled = true;
+            
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            elements.loadingIndicator.classList.add('hidden');
+            elements.searchButton.disabled = false;
+            
+            showSampleRecommendations();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeMovieModal();
+            }
+        });
+
+        console.log('✅ Test page loaded successfully!');
+        console.log('💡 Click "Show Sample Recommendations" to see the UI');
+        console.log('🔍 Click any movie card to open the detail modal');
+    </script>
+</body>
+</html>

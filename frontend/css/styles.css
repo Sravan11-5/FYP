@@ -1,0 +1,922 @@
+/* ==========================================
+   Telugu Movie Recommendation System - Styles
+   ========================================== */
+
+/* ==========================================
+   CSS Variables & Root Styles
+   ========================================== */
+:root {
+    /* Colors */
+    --primary-color: #1e3a8a;
+    --primary-dark: #1e40af;
+    --primary-light: #3b82f6;
+    --secondary-color: #dc2626;
+    --accent-color: #f59e0b;
+    
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-primary: #1e293b;
+    --text-secondary: #64748b;
+    --border-color: #e2e8f0;
+    
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --warning-color: #f59e0b;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    
+    /* Transitions */
+    --transition: all 0.3s ease;
+}
+
+/* ==========================================
+   Reset & Base Styles
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', 'Noto Sans Telugu', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+}
+
+/* ==========================================
+   Header
+   ========================================== */
+.header {
+    background: var(--card-bg);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-md) 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo h1 {
+    font-size: 1.75rem;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.subtitle {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+/* ==========================================
+   Main Content
+   ========================================== */
+.main-content {
+    flex: 1;
+    padding: var(--spacing-xl) 0;
+}
+
+/* ==========================================
+   Hero Section
+   ========================================== */
+.hero {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--card-bg);
+    margin-bottom: var(--spacing-sm);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+}
+
+/* ==========================================
+   Search Section
+   ========================================== */
+.search-section {
+    background: var(--card-bg);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.search-form {
+    width: 100%;
+}
+
+.search-container {
+    display: flex;
+    gap: var(--spacing-sm);
+    flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+    flex: 1;
+    min-width: 300px;
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.search-input {
+    width: 100%;
+    padding: var(--spacing-md) var(--spacing-md) var(--spacing-md) 3.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    font-family: 'Poppins', 'Noto Sans Telugu', sans-serif;
+    transition: var(--transition);
+    background: var(--bg-color);
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+}
+
+.search-button {
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    white-space: nowrap;
+}
+
+.search-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.search-button:active {
+    transform: translateY(0);
+}
+
+.search-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.button-text {
+    font-family: 'Noto Sans Telugu', sans-serif;
+}
+
+/* ==========================================
+   Loading Indicator
+   ========================================== */
+.loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-xl);
+    gap: var(--spacing-md);
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--border-color);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+/* ==========================================
+   Error Message
+   ========================================== */
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: var(--radius-md);
+    margin-top: var(--spacing-md);
+    color: var(--error-color);
+}
+
+.error-icon {
+    flex-shrink: 0;
+}
+
+/* ==========================================
+   Results & Recommendations Sections
+   ========================================== */
+.results-section,
+.recommendations-section {
+    background: var(--card-bg);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-xl);
+    margin-bottom: var(--spacing-xl);
+}
+
+.results-title,
+.recommendations-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.results-container,
+.recommendations-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Movie Card */
+.movie-card {
+    background: var(--bg-color);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    border: 2px solid var(--border-color);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-light);
+}
+
+.movie-poster {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.movie-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.movie-original-title {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.movie-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-sm);
+}
+
+.movie-genre,
+.movie-rating {
+    padding: 0.25rem 0.5rem;
+    background: var(--primary-light);
+    color: white;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.movie-rating {
+    background: var(--accent-color);
+}
+
+/* ==========================================
+   Recommendation Cards - Enhanced
+   ========================================== */
+.recommendation-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 0;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--spacing-md);
+    overflow: hidden;
+}
+
+.recommendation-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+    border: 2px solid var(--primary-light);
+}
+
+.recommendation-card[style*="cursor: pointer"] {
+    transition: all 0.3s ease;
+}
+
+.recommendation-card[style*="cursor: pointer"]:active {
+    transform: translateY(-2px);
+}
+
+.recommendation-poster {
+    position: relative;
+    width: 200px;
+    height: 100%;
+    min-height: 300px;
+}
+
+.recommendation-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.confidence-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(16, 185, 129, 0.95);
+    color: white;
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--radius-md);
+    font-size: 0.75rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-md);
+}
+
+.recommendation-content {
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.recommendation-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.recommendation-original {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0;
+}
+
+.recommendation-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.meta-year,
+.meta-rating,
+.meta-runtime {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.recommendation-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+}
+
+.genre-tag {
+    padding: 0.25rem 0.75rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.recommendation-overview {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.recommendation-reason {
+    background: #f0f9ff;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--primary-light);
+}
+
+.recommendation-reason strong {
+    display: block;
+    color: var(--primary-color);
+    margin-bottom: 0.25rem;
+}
+
+.recommendation-reason p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-primary);
+}
+
+.recommendation-sentiment {
+    background: #fef3c7;
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--accent-color);
+}
+
+.recommendation-sentiment strong {
+    display: block;
+    color: var(--accent-color);
+    margin-bottom: 0.25rem;
+}
+
+.sentiment-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.sentiment-positive {
+    color: var(--success-color);
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.sentiment-negative {
+    color: var(--error-color);
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.sentiment-neutral {
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: 0.875rem;
+}
+
+.sentiment-score {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.recommendation-cast {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.recommendation-cast strong {
+    color: var(--text-primary);
+}
+
+/* ==========================================
+   Movie Detail Modal
+   ========================================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    position: relative;
+    background: var(--card-bg);
+    border-radius: var(--radius-xl);
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-xl);
+    animation: slideUp 0.3s ease;
+    z-index: 1001;
+}
+
+.modal-close {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 10;
+}
+
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.7);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    padding: var(--spacing-xl);
+}
+
+.modal-header {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.modal-poster {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+.modal-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.modal-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.modal-original-title {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin: 0;
+}
+
+.modal-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: var(--spacing-sm) 0;
+}
+
+.modal-genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-xs);
+    margin: var(--spacing-sm) 0;
+}
+
+.modal-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.modal-section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.modal-overview {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-primary);
+}
+
+.modal-cast-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--spacing-sm);
+}
+
+.modal-cast-item {
+    text-align: center;
+    padding: var(--spacing-sm);
+    background: var(--bg-color);
+    border-radius: var(--radius-md);
+}
+
+.modal-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+}
+
+.modal-stat-card {
+    background: var(--bg-color);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.modal-stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.modal-stat-label {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-top: 0.25rem;
+}
+
+.modal-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.modal-button {
+    flex: 1;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.modal-button-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.modal-button-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+}
+
+.modal-button-secondary {
+    background: var(--bg-color);
+    color: var(--text-primary);
+}
+
+.modal-button-secondary:hover {
+    background: var(--border-color);
+}
+
+/* Modal Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modal Responsive Design */
+@media (max-width: 768px) {
+    .modal-header {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-poster {
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .modal-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   Utility Classes
+   ========================================== */
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================
+   Responsive Design - Mobile First
+   ========================================== */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+    }
+    
+    .search-container {
+        flex-direction: column;
+    }
+    
+    .search-input-wrapper {
+        min-width: 100%;
+    }
+    
+    .search-button {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .results-container,
+    .recommendations-container {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Stack recommendation cards vertically on mobile */
+    .recommendation-card {
+        grid-template-columns: 1fr;
+    }
+    
+    .recommendation-poster {
+        width: 100%;
+        height: 300px;
+        min-height: 300px;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .results-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .recommendations-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .recommendation-card {
+        grid-template-columns: 200px 1fr;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .results-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .recommendations-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .recommendation-card {
+        grid-template-columns: 250px 1fr;
+    }
+    
+    .recommendation-poster {
+        width: 250px;
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .results-container {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .recommendations-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   Footer
+   ========================================== */
+.footer {
+    background: var(--card-bg);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-top: auto;
+}
+
+.footer p {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: 0.25rem 0;
+}
+
+.footer-tech {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+}
+
+/* ==========================================
+   Print Styles
+   ========================================== */
+@media print {
+    .header,
+    .search-section,
+    .footer {
+        display: none;
+    }
+    
+    body {
+        background: white;
+    }
+}
