@@ -6,8 +6,11 @@ Uses Siamese Network sentiment analysis and similarity for context-aware recomme
 import logging
 from typing import List, Dict, Optional, Tuple
 from datetime import datetime
+from motor.motor_asyncio import AsyncIOMotorClient
 from app.ml.inference import get_model_inference
-from app.database import get_database
+from app.config import settings
+from app.collectors.tmdb_collector import TMDBDataCollector
+from app.utils.translator import get_translator
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +26,8 @@ class MovieRecommendationEngine:
     def __init__(self):
         """Initialize recommendation engine with ML model and database"""
         self.model_inference = get_model_inference()
+        self.tmdb_collector = TMDBDataCollector()
+        self.translator = get_translator()
         logger.info("Recommendation engine initialized")
     
     async def get_recommendations(
@@ -52,29 +57,38 @@ class MovieRecommendationEngine:
         
         try:
             # Get database connection
-            db = get_database()
+            client = AsyncIOMotorClient(settings.MONGODB_URL)
+            db = client[settings.MONGODB_DB_NAME]
             movies_collection = db.movies
             reviews_collection = db.reviews
             
-            # Step 1: Find the input movie
+            # Step 1: Find the input movie (or fetch from TMDB if not found)
             input_movie = await movies_collection.find_one(
                 {"title": {"$regex": movie_name, "$options": "i"}}
             )
             
             if not input_movie:
-                logger.warning(f"Movie not found: {movie_name}")
-                return []
+                logger.info(f"Movie '{movie_name}' not found in database. Fetching from TMDB...")
+                
+                # Fetch movie from TMDB and add to database
+                input_movie = await self._fetch_and_store_movie(movie_name, movies_collection)
+                
+                if not input_movie:
+                    logger.warning(f"Movie not found on TMDB: {movie_name}")
+                    return []
+                
+                logger.info(f"Successfully added '{input_movie['title']}' to database from TMDB")
             
             logger.info(f"Found input movie: {input_movie['title']}")
             
-            # Step 2: Get reviews for input movie
-            input_reviews = await reviews_collection.find(
-                {"movie_id": input_movie["_id"]}
-            ).to_list(length=100)
+            # Step 2: Get reviews for input movie (from embedded reviews array)
+            input_reviews = input_movie.get('reviews', [])
             
             if not input_reviews:
                 logger.warning(f"No reviews found for movie: {movie_name}")
                 return []
+            
+            logger.info(f"Found {len(input_reviews)} reviews for input movie")
             
             # Step 3: Analyze sentiment of input movie's reviews
             input_sentiments = await self._analyze_movie_sentiment(input_reviews)
@@ -98,10 +112,8 @@ class MovieRecommendationEngine:
             recommendations = []
             
             for candidate in candidate_movies:
-                # Get candidate reviews
-                candidate_reviews = await reviews_collection.find(
-                    {"movie_id": candidate["_id"]}
-                ).to_list(length=100)
+                # Get candidate reviews (from embedded reviews array)
+                candidate_reviews = candidate.get('reviews', [])
                 
                 if not candidate_reviews:
                     continue
@@ -416,6 +428,92 @@ class MovieRecommendationEngine:
             return "Based on overall compatibility"
         
         return f"Recommended due to: {', '.join(reasons)}"
+    
+    async def _fetch_and_store_movie(self, movie_name: str, movies_collection) -> Optional[Dict]:
+        """
+        Fetch movie from TMDB API and store in database with Telugu-translated reviews.
+        
+        Args:
+            movie_name: Name of the movie to search for
+            movies_collection: MongoDB movies collection
+            
+        Returns:
+            Stored movie document or None if not found
+        """
+        try:
+            logger.info(f"Searching TMDB for: {movie_name}")
+            
+            # Search for movie on TMDB using the collector's search method
+            search_results = await self.tmdb_collector.search_movie(movie_name, language="en")
+            
+            if not search_results:
+                logger.warning(f"No results found on TMDB for: {movie_name}")
+                return None
+            
+            # Get the first (most relevant) result
+            tmdb_movie = search_results[0]
+            tmdb_id = tmdb_movie['id']
+            
+            logger.info(f"Found movie on TMDB: {tmdb_movie['title']} (ID: {tmdb_id})")
+            
+            # Fetch full movie details
+            movie_details = await self.tmdb_collector.get_movie_details(tmdb_id)
+            
+            if not movie_details:
+                logger.error(f"Failed to fetch movie details for TMDB ID: {tmdb_id}")
+                return None
+            
+            # Fetch and translate reviews
+            logger.info(f"Fetching reviews for: {movie_details['title']}")
+            translated_reviews = await self.tmdb_collector.get_reviews_and_translate(
+                tmdb_id, 
+                max_reviews=20
+            )
+            
+            if not translated_reviews:
+                logger.warning(f"No reviews found for movie: {movie_details['title']}")
+                return None
+            
+            logger.info(f"Successfully translated {len(translated_reviews)} reviews to Telugu")
+            
+            # Prepare movie document for storage
+            primary_genre = movie_details['genres'][0]['name'] if movie_details.get('genres') else 'Unknown'
+            
+            movie_doc = {
+                'tmdb_id': tmdb_id,
+                'title': movie_details['title'],
+                'original_title': movie_details.get('original_title', movie_details['title']),
+                'genre': primary_genre,
+                'genres': [g['name'] for g in movie_details.get('genres', [])],
+                'rating': movie_details.get('vote_average', 0),
+                'overview': movie_details.get('overview', ''),
+                'release_date': movie_details.get('release_date', ''),
+                'poster_path': movie_details.get('poster_path'),
+                'backdrop_path': movie_details.get('backdrop_path'),
+                'reviews': translated_reviews,
+                'review_count': len(translated_reviews),
+                'has_reviews': True,
+                'popularity': movie_details.get('popularity', 0),
+                'vote_count': movie_details.get('vote_count', 0),
+                'original_language': movie_details.get('original_language', 'en'),
+                'added_on_demand': True,  # Flag to track auto-fetched movies
+                'added_at': datetime.utcnow()
+            }
+            
+            # Insert into database
+            result = await movies_collection.insert_one(movie_doc)
+            movie_doc['_id'] = result.inserted_id
+            
+            logger.info(
+                f"Successfully stored movie '{movie_details['title']}' with "
+                f"{len(translated_reviews)} Telugu reviews"
+            )
+            
+            return movie_doc
+            
+        except Exception as e:
+            logger.error(f"Error fetching and storing movie '{movie_name}': {e}", exc_info=True)
+            return None
 
 
 # Singleton instance getter

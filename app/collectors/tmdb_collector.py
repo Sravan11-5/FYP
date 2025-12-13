@@ -72,16 +72,16 @@ class TMDBDataCollector:
     
     async def get_movie_details(self, tmdb_id: int) -> Optional[Dict]:
         """
-        Get detailed information for a specific movie.
+        Get detailed information for a specific movie in English.
         
         Args:
             tmdb_id: TMDB movie ID
             
         Returns:
-            Dictionary with detailed movie information
+            Dictionary with detailed movie information (in English)
         """
         endpoint = f"{self.BASE_URL}/movie/{tmdb_id}"
-        params = {"language": "te"}
+        params = {"language": "en"}  # Get English titles
         
         try:
             async with aiohttp.ClientSession() as session:
@@ -209,6 +209,65 @@ class TMDBDataCollector:
         except Exception as e:
             logger.error(f"Error getting reviews: {e}", exc_info=True)
             return []
+    
+    async def get_reviews_and_translate(
+        self,
+        tmdb_id: int,
+        max_reviews: int = 10
+    ) -> List[Dict]:
+        """
+        Get TMDB reviews in English and translate to Telugu.
+        
+        Args:
+            tmdb_id: TMDB movie ID
+            max_reviews: Maximum number of reviews to fetch and translate
+            
+        Returns:
+            List of dictionaries with original English and Telugu translations
+        """
+        from app.utils.translator import get_translator
+        
+        # Get English reviews from TMDB
+        reviews = await self.get_movie_reviews(tmdb_id, max_reviews)
+        
+        if not reviews:
+            logger.warning(f"No reviews found for movie ID: {tmdb_id}")
+            return []
+        
+        translator = get_translator()
+        translated_reviews = []
+        
+        for review in reviews:
+            try:
+                content = review.get('content', '')
+                author = review.get('author', 'Anonymous')
+                rating = review.get('author_details', {}).get('rating')
+                
+                if not content:
+                    continue
+                
+                # Translate to Telugu
+                telugu_text = translator.translate_text(content)
+                
+                if telugu_text:
+                    translated_reviews.append({
+                        'text': telugu_text,  # Telugu translation
+                        'original_text': content,  # Original English
+                        'author': author,
+                        'rating': rating,
+                        'source': 'tmdb',
+                        'language': 'te'
+                    })
+                    logger.info(f"Translated review from {author}: {len(content)} chars -> {len(telugu_text)} chars")
+                else:
+                    logger.warning(f"Failed to translate review from {author}")
+                    
+            except Exception as e:
+                logger.error(f"Error processing review: {e}")
+                continue
+        
+        logger.info(f"Successfully translated {len(translated_reviews)}/{len(reviews)} reviews to Telugu")
+        return translated_reviews
     
     async def get_similar_movies(
         self,

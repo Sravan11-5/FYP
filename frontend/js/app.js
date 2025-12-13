@@ -11,7 +11,7 @@ const CONFIG = {
     AUTO_SEARCH_ENDPOINT: '/api/orchestrator/auto-search',
     SEARCH_DEBOUNCE_MS: 300,
     MIN_SEARCH_LENGTH: 2,
-    REQUEST_TIMEOUT: 60000 // 60 seconds for AI processing
+    REQUEST_TIMEOUT: 120000 // 120 seconds (increased from 60)
 };
 
 // DOM Elements
@@ -106,8 +106,15 @@ async function handleSearch(event) {
         state.taskId = data.task_id;
         
         // Process and display results
-        if (data.status === 'completed' && data.recommendations) {
-            displayRecommendations(data);
+        if (data.status === 'completed') {
+            // Show movie results even if no recommendations
+            if (data.movie) {
+                displayMovieResults(data);
+            } else if (data.recommendations && data.recommendations.length > 0) {
+                displayRecommendations(data);
+            } else {
+                throw new Error('Movie not found in database');
+            }
         } else if (data.status === 'failed') {
             throw new Error(data.error || 'Recommendation generation failed');
         } else {
@@ -309,7 +316,16 @@ function generateSessionId() {
  * @returns {string} - HTML for recommendation card
  */
 function renderRecommendationCard(recommendation, index) {
-    const movie = recommendation.movie;
+    // Handle both old format (recommendation.movie) and new flat format
+    const movie = recommendation.movie || recommendation;
+    
+    // Extract year from release_date if present
+    const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : null;
+    
+    // Get similarity score (0-1 scale) and convert to percentage
+    const similarity = recommendation.similarity || 0;
+    const matchPercentage = (similarity * 100).toFixed(0);
+    
     const explanation = recommendation.explanation || {};
     const sentiment = explanation.sentiment || {};
     
@@ -319,28 +335,28 @@ function renderRecommendationCard(recommendation, index) {
     const sentimentClass = sentimentLabel === 'positive' ? 'sentiment-positive' : 
                           sentimentLabel === 'negative' ? 'sentiment-negative' : 'sentiment-neutral';
     
-    // Get confidence score
+    // Get confidence score (use similarity if no confidence_score)
     const confidence = recommendation.confidence_score ? 
-                      (recommendation.confidence_score * 100).toFixed(0) : 'N/A';
+                      (recommendation.confidence_score * 100).toFixed(0) : matchPercentage;
     
     return `
         <div class="recommendation-card" onclick="openMovieModal(state.recommendations[${index}])" style="cursor: pointer;" title="Click to view details">
             <div class="recommendation-poster">
                 <img 
-                    src="${movie.poster_url || 'https://via.placeholder.com/280x400?text=No+Poster'}" 
-                    alt="${movie.title}" 
+                    src="${movie.poster_url || 'https://via.placeholder.com/280x400?text=' + encodeURIComponent(movie.title || 'No Poster')}" 
+                    alt="${movie.title || 'Unknown'}" 
                     loading="lazy"
                 >
                 ${confidence !== 'N/A' ? `<div class="confidence-badge">${confidence}% Match</div>` : ''}
             </div>
             <div class="recommendation-content">
-                <h4 class="recommendation-title">${movie.title} 🔍</h4>
-                ${movie.original_title !== movie.title ? 
+                <h4 class="recommendation-title">${movie.title || 'Unknown Movie'} 🔍</h4>
+                ${movie.original_title && movie.original_title !== movie.title ? 
                     `<p class="recommendation-original">${movie.original_title}</p>` : ''}
                 
                 <div class="recommendation-meta">
-                    ${movie.release_year ? `<span class="meta-year">📅 ${movie.release_year}</span>` : ''}
-                    ${movie.rating ? `<span class="meta-rating">⭐ ${movie.rating}/10</span>` : ''}
+                    ${releaseYear ? `<span class="meta-year">📅 ${releaseYear}</span>` : ''}
+                    ${movie.vote_average && movie.vote_average > 0 ? `<span class="meta-rating">⭐ ${movie.vote_average}/10</span>` : ''}
                     ${movie.runtime ? `<span class="meta-runtime">⏱️ ${movie.runtime} min</span>` : ''}
                 </div>
                 
@@ -391,6 +407,91 @@ function renderRecommendationCard(recommendation, index) {
  * Display recommendations from orchestrator response
  * @param {Object} data - Orchestrator response data
  */
+/**
+ * Display movie search results with analysis
+ * @param {Object} data - Search results data
+ */
+function displayMovieResults(data) {
+    const movie = data.movie;
+    const analysis = data.analysis;
+    const recommendations = data.recommendations || [];
+    
+    console.log('📽️ Displaying movie results:', movie);
+    
+    // Build movie result card
+    const sentiment = analysis?.sentiment_distribution || {};
+    const avgSentiment = analysis?.average_sentiment || 0;
+    const reviewsCount = analysis?.reviews_analyzed || movie.reviews_analyzed || 0;
+    
+    // Extract year from release_date if present
+    const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : null;
+    
+    const resultHTML = `
+        <div class="movie-result-card">
+            <div class="movie-card-content">
+                <img 
+                    src="${movie.poster_url || 'https://via.placeholder.com/150x225?text=No+Poster'}" 
+                    alt="${movie.name || 'Unknown'}" 
+                    class="movie-poster-compact"
+                />
+                <div class="movie-info-compact">
+                    <h2 class="movie-title-compact">🎬 ${movie.name}</h2>
+                    <div class="movie-meta-compact">
+                        ${releaseYear ? `<span>📅 ${releaseYear}</span>` : ''}
+                        ${movie.vote_average && movie.vote_average > 0 ? `<span>⭐ ${movie.vote_average}/10</span>` : ''}
+                        <span>📊 ${reviewsCount} Reviews</span>
+                    </div>
+                    ${movie.overview ? `<p class="overview-compact">${movie.overview}</p>` : ''}
+                </div>
+                ${analysis ? `
+                <div class="sentiment-compact">
+                    <h3>Sentiment</h3>
+                    <div class="sentiment-visual">
+                        <div class="sentiment-bar-compact">
+                            ${sentiment.positive_percentage > 0 ? `<div class="bar-positive" style="width: ${sentiment.positive_percentage}%"></div>` : ''}
+                            ${sentiment.neutral_percentage > 0 ? `<div class="bar-neutral" style="width: ${sentiment.neutral_percentage}%"></div>` : ''}
+                            ${sentiment.negative_percentage > 0 ? `<div class="bar-negative" style="width: ${sentiment.negative_percentage}%"></div>` : ''}
+                        </div>
+                        <div class="sentiment-stats-compact">
+                            <span class="stat-positive">✅ ${sentiment.positive || 0} (${(sentiment.positive_percentage || 0).toFixed(0)}%)</span>
+                            <span class="stat-neutral">⚠️ ${sentiment.neutral || 0} (${(sentiment.neutral_percentage || 0).toFixed(0)}%)</span>
+                            <span class="stat-negative">❌ ${sentiment.negative || 0} (${(sentiment.negative_percentage || 0).toFixed(0)}%)</span>
+                        </div>
+                        <div class="sentiment-score">Score: ${(avgSentiment * 100).toFixed(1)}%</div>
+                    </div>
+                </div>
+                ` : ''}
+            </div>
+            ${recommendations.length > 0 ? `
+                <div class="recommendations-info">
+                    <strong>Similar Movies (${recommendations.length})</strong> - Scroll down to see recommendations
+                </div>
+            ` : `
+                <div class="recommendations-info">
+                    ✅ Analysis complete! No similar movies found yet.
+                </div>
+            `}
+        </div>
+    `;
+    
+    elements.resultsContainer.innerHTML = resultHTML;
+    showResults();
+    
+    // If there are recommendations, show them below
+    if (recommendations.length > 0) {
+        displayRecommendations(data);
+    }
+    
+    // Scroll to results
+    elements.resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+    console.log('✅ Movie results displayed');
+}
+
+/**
+ * Display recommendations from search results
+ * @param {Object} data - Search results with recommendations
+ */
 function displayRecommendations(data) {
     if (!data.recommendations || data.recommendations.length === 0) {
         showError('సిఫార్సులు దొరకలేదు. దయచేసి మరొక చిత్రాన్ని ప్రయత్నించండి. | No recommendations found. Please try another movie.');
@@ -413,12 +514,6 @@ function displayRecommendations(data) {
     console.log(`✅ Displayed ${data.recommendations.length} recommendations`);
     console.log('💡 Click on any recommendation card to view full details');
 }
-    }
-    
-    const html = recommendations.map(movie => renderMovieCard(movie)).join('');
-    elements.recommendationsContainer.innerHTML = html;
-    showRecommendations();
-}
 
 /**
  * Open movie detail modal
@@ -428,29 +523,38 @@ function openMovieModal(movieData) {
     const modal = document.getElementById('movieModal');
     const modalBody = document.getElementById('modalBody');
     
-    const movie = movieData.movie;
+    // Handle both old format (movieData.movie) and new flat format
+    const movie = movieData.movie || movieData;
     const explanation = movieData.explanation || {};
     const sentiment = explanation.sentiment || {};
+    
+    // Get similarity or confidence score
+    const similarity = movieData.similarity || 0;
     const confidence = movieData.confidence_score ? 
-                      (movieData.confidence_score * 100).toFixed(0) : 'N/A';
+                      (movieData.confidence_score * 100).toFixed(0) : 
+                      (similarity * 100).toFixed(0);
+    
+    // Extract year from release_date if present
+    const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : null;
     
     // Build modal content
     const modalHTML = `
         <div class="modal-header">
             <img 
-                src="${movie.poster_url || 'https://via.placeholder.com/300x450?text=No+Poster'}" 
-                alt="${movie.title}" 
+                src="${movie.poster_url || 'https://via.placeholder.com/300x450?text=' + encodeURIComponent(movie.title || 'No Poster')}" 
+                alt="${movie.title || 'Unknown'}" 
                 class="modal-poster"
             >
             <div class="modal-info">
-                <h2 class="modal-title" id="modalTitle">${movie.title}</h2>
-                ${movie.original_title !== movie.title ? 
+                <h2 class="modal-title" id="modalTitle">${movie.title || 'Unknown Movie'}</h2>
+                ${movie.original_title && movie.original_title !== movie.title ? 
                     `<p class="modal-original-title">${movie.original_title}</p>` : ''}
                 
                 <div class="modal-meta">
-                    ${movie.release_year ? `<span>📅 ${movie.release_year}</span>` : ''}
-                    ${movie.rating ? `<span>⭐ ${movie.rating}/10</span>` : ''}
+                    ${releaseYear ? `<span>📅 ${releaseYear}</span>` : ''}
+                    ${movie.vote_average && movie.vote_average > 0 ? `<span>⭐ ${movie.vote_average}/10</span>` : ''}
                     ${movie.runtime ? `<span>⏱️ ${movie.runtime} min</span>` : ''}
+                    ${movie.genre ? `<span>🎭 ${movie.genre}</span>` : ''}
                 </div>
                 
                 ${movie.genres && movie.genres.length > 0 ? `
@@ -461,7 +565,7 @@ function openMovieModal(movieData) {
                     </div>
                 ` : ''}
                 
-                ${confidence !== 'N/A' ? `
+                ${confidence !== 'N/A' && confidence > 0 ? `
                     <div style="margin-top: 1rem;">
                         <div class="confidence-badge" style="position: static; display: inline-block;">
                             ${confidence}% Match
