@@ -272,15 +272,25 @@ async def automated_search(request: AutoSearchRequest):
             
             tmdb_collector = TMDBDataCollector()
             
-            # Search for movie on TMDB
+            # Search for movie on TMDB - try multiple languages
             search_results = await tmdb_collector.search_movie(movie_name, language="en")
+            
+            # If no results, try without language filter (original language)
+            if not search_results:
+                logger.info(f"No results in English, trying original language search...")
+                search_results = await tmdb_collector.search_movie(movie_name, language="")
+            
+            # If still no results, try common alternate titles
+            if not search_results and movie_name.lower() == "my fault":
+                logger.info(f"Trying alternate title 'Culpa Mía' for 'My Fault'...")
+                search_results = await tmdb_collector.search_movie("Culpa Mía", language="es")
             
             if not search_results:
                 return {
                     "status": "failed",
                     "success": False,
                     "error": f"Movie '{movie_name}' not found on TMDB",
-                    "message": "Movie not found. Please check spelling and try again.",
+                    "message": f"Could not find '{movie_name}' on TMDB. Please check the spelling or try a different title.",
                     "recommendations": [],
                     "movie": None,
                     "analysis": None

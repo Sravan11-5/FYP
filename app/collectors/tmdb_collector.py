@@ -34,7 +34,7 @@ class TMDBDataCollector:
         
         Args:
             movie_name: Name of the movie to search for
-            language: Language for results (te=Telugu, en=English)
+            language: Language for results (te=Telugu, en=English, ""=all languages)
             
         Returns:
             List of movie results with basic info
@@ -42,9 +42,12 @@ class TMDBDataCollector:
         endpoint = f"{self.BASE_URL}/search/movie"
         params = {
             "query": movie_name,
-            "language": language,
             "include_adult": "false"
         }
+        
+        # Only add language parameter if specified
+        if language:
+            params["language"] = language
         
         try:
             async with aiohttp.ClientSession() as session:
@@ -57,7 +60,7 @@ class TMDBDataCollector:
                         data = await response.json()
                         results = data.get('results', [])
                         logger.info(
-                            f"Found {len(results)} movies for query: {movie_name}"
+                            f"Found {len(results)} movies for query: '{movie_name}' (language: {language or 'all'})"
                         )
                         return results
                     else:

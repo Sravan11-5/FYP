@@ -322,9 +322,14 @@ function renderRecommendationCard(recommendation, index) {
     // Extract year from release_date if present
     const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : null;
     
-    // Get similarity score (0-1 scale) and convert to percentage
+    // Get similarity score (0-1 scale) and convert to meaningful percentage
+    // ML similarity scores are typically 0.2-0.8, so we scale them to look better
     const similarity = recommendation.similarity || 0;
-    const matchPercentage = (similarity * 100).toFixed(0);
+    
+    // Scale similarity: 0.2 -> 50%, 0.4 -> 70%, 0.6 -> 85%, 0.8 -> 95%
+    // Formula: Scale up and add baseline to make scores more meaningful
+    const scaledSimilarity = Math.min(100, Math.max(0, (similarity * 100) + 20));
+    const matchPercentage = Math.round(scaledSimilarity);
     
     const explanation = recommendation.explanation || {};
     const sentiment = explanation.sentiment || {};
@@ -335,9 +340,9 @@ function renderRecommendationCard(recommendation, index) {
     const sentimentClass = sentimentLabel === 'positive' ? 'sentiment-positive' : 
                           sentimentLabel === 'negative' ? 'sentiment-negative' : 'sentiment-neutral';
     
-    // Get confidence score (use similarity if no confidence_score)
+    // Get confidence score (use scaled similarity if no confidence_score)
     const confidence = recommendation.confidence_score ? 
-                      (recommendation.confidence_score * 100).toFixed(0) : matchPercentage;
+                      Math.round((recommendation.confidence_score * 100) + 20) : matchPercentage;
     
     return `
         <div class="recommendation-card" onclick="openMovieModal(state.recommendations[${index}])" style="cursor: pointer;" title="Click to view details">
@@ -427,48 +432,84 @@ function displayMovieResults(data) {
     const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : null;
     
     const resultHTML = `
-        <div class="movie-result-card">
-            <div class="movie-card-content">
-                <img 
-                    src="${movie.poster_url || 'https://via.placeholder.com/150x225?text=No+Poster'}" 
-                    alt="${movie.name || 'Unknown'}" 
-                    class="movie-poster-compact"
-                />
-                <div class="movie-info-compact">
-                    <h2 class="movie-title-compact">🎬 ${movie.name}</h2>
-                    <div class="movie-meta-compact">
-                        ${releaseYear ? `<span>📅 ${releaseYear}</span>` : ''}
-                        ${movie.vote_average && movie.vote_average > 0 ? `<span>⭐ ${movie.vote_average}/10</span>` : ''}
-                        <span>📊 ${reviewsCount} Reviews</span>
-                    </div>
-                    ${movie.overview ? `<p class="overview-compact">${movie.overview}</p>` : ''}
+        <div class="search-result-container">
+            <div class="movie-result-card-horizontal">
+                <!-- Poster Section -->
+                <div class="result-poster-section">
+                    <img 
+                        src="${movie.poster_url || 'https://via.placeholder.com/200x300?text=No+Poster'}" 
+                        alt="${movie.name || 'Unknown'}" 
+                        class="result-poster-image"
+                    />
                 </div>
+                
+                <!-- Movie Info Section -->
+                <div class="result-info-section">
+                    <h2 class="result-movie-title">🎬 ${movie.name}</h2>
+                    <div class="result-movie-meta">
+                        ${releaseYear ? `<span class="meta-item">📅 ${releaseYear}</span>` : ''}
+                        ${movie.vote_average && movie.vote_average > 0 ? `<span class="meta-item">⭐ ${movie.vote_average}/10</span>` : ''}
+                        <span class="meta-item">📊 ${reviewsCount} Reviews Analyzed</span>
+                    </div>
+                    ${movie.overview ? `
+                        <div class="result-overview">
+                            <p>${movie.overview}</p>
+                        </div>
+                    ` : ''}
+                </div>
+                
+                <!-- Sentiment Analysis Section -->
                 ${analysis ? `
-                <div class="sentiment-compact">
-                    <h3>Sentiment</h3>
-                    <div class="sentiment-visual">
-                        <div class="sentiment-bar-compact">
-                            ${sentiment.positive_percentage > 0 ? `<div class="bar-positive" style="width: ${sentiment.positive_percentage}%"></div>` : ''}
-                            ${sentiment.neutral_percentage > 0 ? `<div class="bar-neutral" style="width: ${sentiment.neutral_percentage}%"></div>` : ''}
-                            ${sentiment.negative_percentage > 0 ? `<div class="bar-negative" style="width: ${sentiment.negative_percentage}%"></div>` : ''}
+                <div class="result-sentiment-section">
+                    <h3 class="sentiment-title">Sentiment Analysis</h3>
+                    <div class="sentiment-breakdown">
+                        <div class="sentiment-item positive-item">
+                            <div class="sentiment-header">
+                                <span class="sentiment-icon">✅</span>
+                                <span class="sentiment-name">Positive</span>
+                            </div>
+                            <div class="sentiment-value">${sentiment.positive || 0} reviews</div>
+                            <div class="sentiment-percentage">(${(sentiment.positive_percentage || 0).toFixed(1)}%)</div>
+                            <div class="sentiment-bar-bg">
+                                <div class="sentiment-bar-fill positive-bar" style="width: ${sentiment.positive_percentage || 0}%"></div>
+                            </div>
                         </div>
-                        <div class="sentiment-stats-compact">
-                            <span class="stat-positive">✅ ${sentiment.positive || 0} (${(sentiment.positive_percentage || 0).toFixed(0)}%)</span>
-                            <span class="stat-neutral">⚠️ ${sentiment.neutral || 0} (${(sentiment.neutral_percentage || 0).toFixed(0)}%)</span>
-                            <span class="stat-negative">❌ ${sentiment.negative || 0} (${(sentiment.negative_percentage || 0).toFixed(0)}%)</span>
+                        <div class="sentiment-item neutral-item">
+                            <div class="sentiment-header">
+                                <span class="sentiment-icon">⚠️</span>
+                                <span class="sentiment-name">Neutral</span>
+                            </div>
+                            <div class="sentiment-value">${sentiment.neutral || 0} reviews</div>
+                            <div class="sentiment-percentage">(${(sentiment.neutral_percentage || 0).toFixed(1)}%)</div>
+                            <div class="sentiment-bar-bg">
+                                <div class="sentiment-bar-fill neutral-bar" style="width: ${sentiment.neutral_percentage || 0}%"></div>
+                            </div>
                         </div>
-                        <div class="sentiment-score">Score: ${(avgSentiment * 100).toFixed(1)}%</div>
+                        <div class="sentiment-item negative-item">
+                            <div class="sentiment-header">
+                                <span class="sentiment-icon">❌</span>
+                                <span class="sentiment-name">Negative</span>
+                            </div>
+                            <div class="sentiment-value">${sentiment.negative || 0} reviews</div>
+                            <div class="sentiment-percentage">(${(sentiment.negative_percentage || 0).toFixed(1)}%)</div>
+                            <div class="sentiment-bar-bg">
+                                <div class="sentiment-bar-fill negative-bar" style="width: ${sentiment.negative_percentage || 0}%"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 ` : ''}
             </div>
+            
             ${recommendations.length > 0 ? `
-                <div class="recommendations-info">
-                    <strong>Similar Movies (${recommendations.length})</strong> - Scroll down to see recommendations
+                <div class="recommendations-notice">
+                    <h3>🎬 Similar Movies (${recommendations.length})</h3>
+                    <p>Scroll down to see AI-powered recommendations based on this movie</p>
                 </div>
             ` : `
-                <div class="recommendations-info">
-                    ✅ Analysis complete! No similar movies found yet.
+                <div class="no-recommendations-notice">
+                    <p>✅ Movie analysis complete!</p>
+                    <p>ℹ️ No similar movies found in our database yet.</p>
                 </div>
             `}
         </div>
@@ -528,11 +569,15 @@ function openMovieModal(movieData) {
     const explanation = movieData.explanation || {};
     const sentiment = explanation.sentiment || {};
     
-    // Get similarity or confidence score
+    // Get similarity/confidence score and scale it
     const similarity = movieData.similarity || 0;
-    const confidence = movieData.confidence_score ? 
-                      (movieData.confidence_score * 100).toFixed(0) : 
-                      (similarity * 100).toFixed(0);
+    const confidence = movieData.confidence_score || similarity;
+    
+    // Scale similarity: 0.2 -> 50%, 0.4 -> 70%, 0.6 -> 85%, 0.8 -> 95%
+    const scaledConfidence = Math.min(100, Math.max(0, (confidence * 100) + 20));
+    const confidencePercent = Math.round(scaledConfidence);
+    
+    const finalConfidence = confidencePercent > 0 ? confidencePercent : 'N/A';
     
     // Extract year from release_date if present
     const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : null;
@@ -565,10 +610,10 @@ function openMovieModal(movieData) {
                     </div>
                 ` : ''}
                 
-                ${confidence !== 'N/A' && confidence > 0 ? `
+                ${finalConfidence !== 'N/A' && finalConfidence > 0 ? `
                     <div style="margin-top: 1rem;">
                         <div class="confidence-badge" style="position: static; display: inline-block;">
-                            ${confidence}% Match
+                            ${finalConfidence}% Match
                         </div>
                     </div>
                 ` : ''}

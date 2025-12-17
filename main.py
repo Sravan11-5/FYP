@@ -127,9 +127,10 @@ app.include_router(orchestrator_router)
 app.include_router(system_router)
 app.include_router(feedback_router)
 
-# Mount static files (CSS, JS)
+# Mount static files (CSS, JS, Images)
 app.mount("/css", StaticFiles(directory="frontend/css"), name="css")
 app.mount("/js", StaticFiles(directory="frontend/js"), name="js")
+app.mount("/images", StaticFiles(directory="frontend/images"), name="images")
 
 # Root endpoints
 @app.get("/")
